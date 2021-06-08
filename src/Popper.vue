@@ -1,12 +1,11 @@
 <template>
   <div v-click-outside="hide">
-    <div ref="triggerNode" v-on="listeners" style="display: inline-block">
+    <div ref="triggerNode" v-on="listeners" class="inline-block">
       <slot />
     </div>
     <div
-      class="popover"
+      :class="['popover', isOpen ? 'inline-block' : 'hidden']"
       ref="popoverNode"
-      :style="{ display: isOpen ? 'inline-block' : 'none' }"
     >
       <slot name="content" />
       <div v-if="arrow" id="arrow" data-popper-arrow></div>
@@ -15,7 +14,7 @@
 </template>
 
 <script>
-  import { defineComponent, computed, onBeforeUnmount, onMounted } from "vue";
+  import { defineComponent, computed, onBeforeUnmount } from "vue";
   import usePopper from "./composables/userPopper";
 
   export default /*#__PURE__*/ defineComponent({
@@ -127,7 +126,7 @@
   });
 </script>
 
-<style>
+<style scoped>
   #arrow,
   #arrow::before {
     position: absolute;
@@ -172,5 +171,13 @@
   .popover:hover,
   .popover:hover > #arrow::before {
     background: var(--popover-theme-background-color-hover);
+  }
+
+  .inline-block {
+    display: inline-block;
+  }
+
+  .hidden {
+    display: none;
   }
 </style>
