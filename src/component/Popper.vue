@@ -4,8 +4,8 @@
       <slot />
     </div>
     <div
-      :class="['popover', isOpen ? 'inline-block' : 'hidden']"
-      ref="popoverNode"
+      :class="['popper', isOpen ? 'inline-block' : 'hidden']"
+      ref="popperNode"
     >
       <slot name="content" />
       <div v-if="arrow" id="arrow" data-popper-arrow></div>
@@ -47,21 +47,21 @@
         },
       },
       /**
-       * Customize the [offset](https://popper.js.org/docs/v2/modifiers/offset/) of the popover
+       * Customize the [offset](https://popper.js.org/docs/v2/modifiers/offset/) of the popper
        */
       offset: {
         type: String,
         default: "8",
       },
       /**
-       * Show the popover on hover
+       * Show the popper on hover
        */
       hover: {
         type: Boolean,
         default: false,
       },
       /**
-       * Add an arrow to the popover
+       * Add an arrow to the popper
        */
       arrow: {
         type: Boolean,
@@ -73,7 +73,7 @@
 
       if (children.length > 1) {
         return console.error(
-          `[Popover]: The <Popover> component expects only one child element at its root. You passed ${children.length} child nodes.`,
+          `[Popper]: The <Popper> component expects only one child element at its root. You passed ${children.length} child nodes.`,
         );
       }
 
@@ -85,7 +85,7 @@
         show,
         toggle,
         popperInstance,
-        popoverNode,
+        popperNode,
         triggerNode,
       } = usePopper({ offset, placement });
 
@@ -116,7 +116,7 @@
 
       return {
         isOpen,
-        popoverNode,
+        popperNode,
         triggerNode,
         toggle,
         hide,
@@ -132,7 +132,7 @@
     position: absolute;
     width: 8px;
     height: 8px;
-    background: var(--popover-theme-background-color);
+    background: var(--popper-theme-background-color);
   }
 
   #arrow {
@@ -145,32 +145,32 @@
     transform: rotate(45deg);
   }
 
-  .popover[data-popper-placement^="top"] > #arrow {
+  .popper[data-popper-placement^="top"] > #arrow {
     bottom: -4px;
   }
 
-  .popover[data-popper-placement^="bottom"] > #arrow {
+  .popper[data-popper-placement^="bottom"] > #arrow {
     top: -4px;
   }
 
-  .popover[data-popper-placement^="left"] > #arrow {
+  .popper[data-popper-placement^="left"] > #arrow {
     right: -4px;
   }
 
-  .popover[data-popper-placement^="right"] > #arrow {
+  .popper[data-popper-placement^="right"] > #arrow {
     left: -4px;
   }
 
-  .popover {
-    background: var(--popover-theme-background-color);
-    padding: var(--popover-theme-padding);
-    color: var(--popover-theme-text-color);
-    border-radius: var(--popover-theme-border-radius);
+  .popper {
+    background: var(--popper-theme-background-color);
+    padding: var(--popper-theme-padding);
+    color: var(--popper-theme-text-color);
+    border-radius: var(--popper-theme-border-radius);
   }
 
-  .popover:hover,
-  .popover:hover > #arrow::before {
-    background: var(--popover-theme-background-color-hover);
+  .popper:hover,
+  .popper:hover > #arrow::before {
+    background: var(--popper-theme-background-color-hover);
   }
 
   .inline-block {

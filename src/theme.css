@@ -1,10 +1,10 @@
 :root {
-  --popover-theme-background-color: #ffffff;
-  --popover-theme-background-color-hover: #ffffff;
-  --popover-theme-text-color: inherit;
-  --popover-theme-border-width: 1px;
-  --popover-theme-border-style: solid;
-  --popover-theme-border-color: #ffffff;
-  --popover-theme-border-radius: 5px;
-  --popover-theme-padding: 12px;
+  --popper-theme-background-color: #ffffff;
+  --popper-theme-background-color-hover: #ffffff;
+  --popper-theme-text-color: inherit;
+  --popper-theme-border-width: 1px;
+  --popper-theme-border-style: solid;
+  --popper-theme-border-color: #ffffff;
+  --popper-theme-border-radius: 5px;
+  --popper-theme-padding: 12px;
 }

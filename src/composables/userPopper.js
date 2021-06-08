@@ -8,7 +8,7 @@ import arrow from "@popperjs/core/lib/modifiers/arrow";
 export default function usePopper(options) {
   const isOpen = ref(false);
   const popperInstance = ref(null);
-  const popoverNode = ref(null);
+  const popperNode = ref(null);
   const triggerNode = ref(null);
 
   const hide = () => {
@@ -35,7 +35,7 @@ export default function usePopper(options) {
   });
 
   const setupPopper = () => {
-    popperInstance.value = createPopper(triggerNode.value, popoverNode.value, {
+    popperInstance.value = createPopper(triggerNode.value, popperNode.value, {
       placement: options.placement,
       modifiers: [
         preventOverflow,
@@ -60,7 +60,7 @@ export default function usePopper(options) {
     show,
     toggle,
     popperInstance,
-    popoverNode,
+    popperNode,
     triggerNode,
   };
 }
