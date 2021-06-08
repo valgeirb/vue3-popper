@@ -19,8 +19,7 @@
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife"
   },
   "dependencies": {
-    "@popperjs/core": "^2.9.2",
-    "prettier": "^1.19.1"
+    "@popperjs/core": "^2.9.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
@@ -36,6 +35,7 @@
     "cross-env": "^7.0.3",
     "minimist": "^1.2.5",
     "postcss": "^8.2.3",
+    "prettier": "^1.19.1",
     "rollup": "^2.36.1",
     "rollup-plugin-postcss": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2",
