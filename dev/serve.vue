@@ -1,6 +1,17 @@
+<template>
+  <div id="app">
+    <Popper placement="right" arrow>
+      <button style="width: 100px">Click this</button>
+      <template #content>
+        <div>This is the content</div>
+      </template>
+    </Popper>
+  </div>
+</template>
+
 <script>
   import { defineComponent } from "vue";
-  import Popper from "@/popper.vue";
+  import Popper from "@/Popper.vue";
 
   export default defineComponent({
     name: "ServeDev",
@@ -9,17 +20,6 @@
     },
   });
 </script>
-
-<template>
-  <div id="app">
-    <Popper placement="bottom" arrow>
-      <button style="width: 100px">Click this</button>
-      <template #content>
-        <div class="test">This is the content</div>
-      </template>
-    </Popper>
-  </div>
-</template>
 
 <style>
   html {
@@ -30,11 +30,5 @@
     margin-top: 200px;
     display: flex;
     justify-content: center;
-  }
-  .test {
-    width: 100px;
-    text-align: center;
-    background: white;
-    padding: 5px;
   }
 </style>

@@ -1,5 +1,7 @@
-import { createApp } from 'vue';
-import Dev from './serve.vue';
+import { createApp } from "vue";
+import Dev from "./serve.vue";
+import clickOutside from "../src/click-outside";
+import "../src/theme.css";
 
-const app = createApp(Dev);
-app.mount('#app');
+const app = createApp(Dev).directive("click-outside", clickOutside);
+app.mount("#app");
