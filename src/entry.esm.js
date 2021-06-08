@@ -1,4 +1,4 @@
-import component from "@/popper.vue";
+import component from "@/component/Popper.vue";
 import clickOutside from "./directives/click-outside";
 import "./theme.css";
 
