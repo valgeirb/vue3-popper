@@ -1,5 +1,5 @@
 import component from "@/popper.vue";
-import clickOutside from "./click-outside";
+import clickOutside from "./directives/click-outside";
 import "./theme.css";
 
 // Default export is installable instance of component.

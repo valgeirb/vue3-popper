@@ -15,7 +15,7 @@
 
 <script>
   import { defineComponent, computed, onBeforeUnmount } from "vue";
-  import usePopper from "./composables/userPopper";
+  import usePopper from "../composables/userPopper";
 
   export default /*#__PURE__*/ defineComponent({
     name: "Popper",

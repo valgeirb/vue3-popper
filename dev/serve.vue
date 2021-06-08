@@ -11,7 +11,7 @@
 
 <script>
   import { defineComponent } from "vue";
-  import Popper from "@/Popper.vue";
+  import Popper from "@/component/Popper.vue";
 
   export default defineComponent({
     name: "ServeDev",
