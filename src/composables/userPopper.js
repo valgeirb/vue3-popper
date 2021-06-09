@@ -30,11 +30,11 @@ export default function usePopper(options) {
   watch(isOpen, async isOpen => {
     if (isOpen) {
       await nextTick();
-      setupPopper();
+      initializePopper();
     }
   });
 
-  const setupPopper = () => {
+  const initializePopper = () => {
     popperInstance.value = createPopper(triggerNode.value, popperNode.value, {
       placement: options.placement,
       modifiers: [

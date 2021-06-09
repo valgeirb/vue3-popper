@@ -1,12 +1,14 @@
 <template>
   <div v-click-outside="hide">
     <div ref="triggerNode" v-on="listeners" class="inline-block">
+      <!-- The default slot to trigger the popper  -->
       <slot />
     </div>
     <div
       :class="['popper', isOpen ? 'inline-block' : 'hidden']"
       ref="popperNode"
     >
+      <!-- A slot for the popper content -->
       <slot name="content" />
       <div v-if="arrow" id="arrow" data-popper-arrow></div>
     </div>
@@ -14,11 +16,15 @@
 </template>
 
 <script>
-  import { defineComponent, computed, onBeforeUnmount } from "vue";
+  import { defineComponent, computed, onBeforeUnmount, watch } from "vue";
   import usePopper from "../composables/userPopper";
 
+  /**
+   * The Popper component.
+   */
   export default /*#__PURE__*/ defineComponent({
     name: "Popper",
+    emits: ["show:popper", "hide:popper"],
     props: {
       /**
        * Preferred [placement](https://popper.js.org/docs/v2/constructors/#options)
@@ -68,7 +74,7 @@
         default: false,
       },
     },
-    setup(props, { slots }) {
+    setup(props, { slots, emit }) {
       const children = slots.default();
 
       if (children.length > 1) {
@@ -89,10 +95,6 @@
         triggerNode,
       } = usePopper({ offset, placement });
 
-      onBeforeUnmount(() => {
-        popperInstance.value && popperInstance.value.destroy();
-      });
-
       const listeners = computed(() => {
         const hover = {
           mouseover: show,
@@ -112,6 +114,18 @@
             hide();
           },
         };
+      });
+
+      watch(isOpen, isOpen => {
+        if (isOpen) {
+          emit("show:popper");
+        } else {
+          emit("hide:popper");
+        }
+      });
+
+      onBeforeUnmount(() => {
+        popperInstance.value && popperInstance.value.destroy();
       });
 
       return {
