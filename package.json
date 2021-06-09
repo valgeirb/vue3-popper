@@ -1,5 +1,5 @@
 {
-  "name": "vue-popper",
+  "name": "vue3-popper",
   "version": "0.0.1",
   "author": {
     "name": "Valgeir Björnsson",
@@ -9,11 +9,12 @@
   "license": "MIT",
   "description": "A Vue 3 popper component. Uses PopperJS v2.",
   "keywords": [
-    "vue popper component",
-    "vue 3 popper",
-    "vue 3 popover",
-    "vue 3 popper SFC",
-    "vue 3 popper 2"
+    "vue-popper-component",
+    "vue-3-popper",
+    "vue-3-popover",
+    "vue-3-popper-SFC",
+    "popper-2",
+    "vue-3-popper-2"
   ],
   "main": "dist/popper.ssr.js",
   "browser": "dist/popper.esm.js",
