@@ -1,5 +1,5 @@
 <template>
-  <div v-click-outside="hide">
+  <div v-click-away="hide">
     <div ref="triggerNode" v-on="listeners" class="inline-block">
       <!-- The default slot to trigger the popper  -->
       <slot />
@@ -18,6 +18,7 @@
 <script>
   import { defineComponent, computed, onBeforeUnmount, watch } from "vue";
   import usePopper from "../composables/userPopper";
+  import clickAway from "../directives/click-away";
 
   /**
    * The Popper component.
@@ -25,6 +26,9 @@
   export default /*#__PURE__*/ defineComponent({
     name: "Popper",
     emits: ["show:popper", "hide:popper"],
+    directives: {
+      clickAway,
+    },
     props: {
       /**
        * Preferred [placement](https://popper.js.org/docs/v2/constructors/#options)

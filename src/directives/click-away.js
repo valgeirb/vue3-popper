@@ -1,17 +1,17 @@
-const clickOutside = {
+const clickAway = {
   beforeMount: (el, binding) => {
-    el.clickOutsideEvent = event => {
+    el.clickAwayEvent = event => {
       // Clicked outside of the element and its children
       if (!(el == event.target || el.contains(event.target))) {
         // Call the provided method
         binding.value();
       }
     };
-    document.addEventListener("click", el.clickOutsideEvent);
+    document.addEventListener("click", el.clickAwayEvent);
   },
   unmounted: el => {
-    document.removeEventListener("click", el.clickOutsideEvent);
+    document.removeEventListener("click", el.clickAwayEvent);
   },
 };
 
-export default clickOutside;
+export default clickAway;

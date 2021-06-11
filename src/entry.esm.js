@@ -1,5 +1,4 @@
 import component from "@/component/Popper.vue";
-import clickOutside from "./directives/click-outside";
 
 // Default export is installable instance of component.
 // IIFE injects install function into component, allowing component
@@ -18,4 +17,3 @@ export default /*#__PURE__*/ (() => {
 // It's possible to expose named exports when writing components that can
 // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
 // export const RollupDemoDirective = directive;
-export { clickOutside };
