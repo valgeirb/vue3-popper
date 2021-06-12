@@ -43,13 +43,7 @@ function getSidebar() {
     },
     {
       text: "Advanced",
-      children: [
-        { text: "API", link: "/guide/api" },
-        {
-          text: "Theming",
-          link: "/guide/theming",
-        },
-      ],
+      children: [{ text: "API", link: "/guide/api" }],
     },
   ];
 }

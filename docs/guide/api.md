@@ -1,37 +1,23 @@
 # API
 
-## Events
-
-### foo
-
-- Type: `string`
-- Default: `/`
-
-### bar
-
-- Type: `string`
-- Default: `/`
-
 ## Props
 
-### foo
+| Name        | Default  | Description                                 |
+| ----------- | -------- | ------------------------------------------- |
+| `placement` | `bottom` | Preferred placement of the popover          |
+| `offset`    | `12`     | Distance in pixels from the trigger element |
+| `hover`     | `false`  | Trigger the popover on hover                |
+| `arrow`     | `false`  | Display an arrow on the popover             |
 
-- Type: `string`
-- Default: `/`
+## Events
 
-### bar
-
-- Type: `string`
-- Default: `/`
+| Name          | Description                |
+| ------------- | -------------------------- |
+| `show:popper` | When the popover is shown  |
+| `hide:popper` | When the popover is hidden |
 
 ## Slots
 
-### foo
-
-- Type: `string`
-- Default: `/`
-
-### bar
-
-- Type: `string`
-- Default: `/`
+| Name      | Description             |
+| --------- | ----------------------- |
+| `content` | For the popover content |

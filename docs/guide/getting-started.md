@@ -16,7 +16,9 @@ npm i vue3-popper
 </CodeBlock>
 </CodeGroup>
 
-Then, import and register the component:
+### Global
+
+You can import and register the component globally:
 
 ```javascript
 import { createApp } from "vue";
@@ -24,6 +26,32 @@ import Popper from "vue3-popper";
 
 const app = Vue.createApp({});
 app.component("Popper", Popper);
+```
+
+### Component
+
+Or use it on a case by case basis:
+
+```html
+<template>
+  <Popper>
+    <button>Trigger element</button>
+    <template #content>
+      <div>This is the Popper content</div>
+    </template>
+  </Popper>
+</template>
+
+<script>
+  import { defineComponent } from "vue";
+  import Popper from "vue3-popper";
+
+  export default defineComponent({
+    components: {
+      Popper,
+    },
+  });
+</script>
 ```
 
 ## Usage
@@ -53,6 +81,8 @@ You can add Popper to any of your elements or components. Just wrap them with `P
 
 `Popper` doesn't come with any predefined styles. It does however come with a list of predefined CSS variables. You can overwrite these variables to suit your needs.
 
+#### CSS variables
+
 | CSS variable                            | Default value |
 | --------------------------------------- | ------------- |
 | `--popper-theme-background-color`       | `#ffffff`     |
@@ -78,10 +108,3 @@ That's fine, you can always just apply your own styles to the markup inside the 
   </Popper>
 </template>
 ```
-
-<Popper>
-  <Button>Test</Button>
-  <template v-slot:content>
-    <div>Test</div>
-  <template>
-</Popper>
