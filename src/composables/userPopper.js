@@ -36,7 +36,7 @@ export default function usePopper(options) {
 
   const initializePopper = () => {
     popperInstance.value = createPopper(triggerNode.value, popperNode.value, {
-      placement: options.placement,
+      placement: options.placement.value,
       modifiers: [
         preventOverflow,
         flip,
@@ -45,7 +45,7 @@ export default function usePopper(options) {
         {
           name: "offset",
           options: {
-            offset: [0, options.offset],
+            offset: [0, options.offset.value],
           },
         },
       ],

@@ -78,3 +78,10 @@ That's fine, you can always just apply your own styles to the markup inside the 
   </Popper>
 </template>
 ```
+
+<Popper>
+  <Button>Test</Button>
+  <template v-slot:content>
+    <div>Test</div>
+  <template>
+</Popper>

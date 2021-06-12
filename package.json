@@ -22,8 +22,7 @@
   "unpkg": "dist/popper.min.js",
   "files": [
     "dist/*",
-    "src/**/*.vue",
-    "src/theme.css"
+    "src/**/*.vue"
   ],
   "sideEffects": false,
   "scripts": {

@@ -4,22 +4,31 @@
       <!-- The default slot to trigger the popper  -->
       <slot />
     </div>
-    <div
-      :class="['popper', isOpen ? 'inline-block' : 'hidden']"
-      ref="popperNode"
-    >
-      <!-- A slot for the popper content -->
-      <slot name="content" />
-      <div v-if="arrow" id="arrow" data-popper-arrow></div>
-    </div>
+    <Transition name="fade">
+      <div
+        v-if="isOpen"
+        :class="['popper', isOpen ? 'inline-block' : null]"
+        ref="popperNode"
+      >
+        <!-- A slot for the popper content -->
+        <slot name="content" />
+        <div v-if="arrow" id="arrow" data-popper-arrow></div>
+      </div>
+    </Transition>
   </div>
 </template>
 
 <script>
-  import { defineComponent, computed, onBeforeUnmount, watch } from "vue";
+  import {
+    defineComponent,
+    computed,
+    onBeforeUnmount,
+    watch,
+    toRefs,
+  } from "vue";
   import usePopper from "../composables/userPopper";
   import clickAway from "../directives/click-away";
-
+  import "../theme.css";
   /**
    * The Popper component.
    */
@@ -61,7 +70,7 @@
        */
       offset: {
         type: String,
-        default: "8",
+        default: "12",
       },
       /**
        * Show the popper on hover
@@ -81,13 +90,13 @@
     setup(props, { slots, emit }) {
       const children = slots.default();
 
-      if (children.length > 1) {
+      if (children && children.length > 1) {
         return console.error(
           `[Popper]: The <Popper> component expects only one child element at its root. You passed ${children.length} child nodes.`,
         );
       }
 
-      const { offset, placement } = props;
+      const { offset, placement } = toRefs(props);
 
       const {
         isOpen,
@@ -184,6 +193,8 @@
     padding: var(--popper-theme-padding);
     color: var(--popper-theme-text-color);
     border-radius: var(--popper-theme-border-radius);
+    border: var(--popper-theme-border);
+    box-shadow: var(--popper-theme-shadow);
   }
 
   .popper:hover,
@@ -195,7 +206,13 @@
     display: inline-block;
   }
 
-  .hidden {
-    display: none;
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.2s ease;
+  }
+
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
   }
 </style>

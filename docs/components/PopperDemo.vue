@@ -10,7 +10,6 @@
 <script>
   import Popper from "../../dist/popper.esm";
   export default {
-    props: ["placement", "arrow"],
     components: {
       Popper,
     },
