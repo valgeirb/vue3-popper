@@ -6,6 +6,13 @@
 
 > A popover component for Vue 3
 
+## Documentation
+
+Check out the [documentation](https://valgeirb.github.io/vue-popper/)
+
+- [Getting started](https://valgeirb.github.io/vue-popper/guide/getting-started.html)
+- [Usage](https://valgeirb.github.io/vue-popper/guide/getting-started.html#usage)
+
 ## Install
 
 ### NPM
