@@ -10,5 +10,5 @@ features:
   - title: 🔌 Simple API
     details: Made to be easy to use.
   - title: 🎨 Themable
-    details: Use CSS properties to quickly theme your popper.
+    details: Use CSS properties to quickly theme your popper or write your own CSS.
 ---
