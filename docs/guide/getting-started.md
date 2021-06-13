@@ -83,16 +83,17 @@ You can add Popper to any of your elements or components. Just wrap them with `P
 
 #### CSS variables
 
-| CSS variable                            | Default value |
-| --------------------------------------- | ------------- |
-| `--popper-theme-background-color`       | `#ffffff`     |
-| `--popper-theme-background-color-hover` | `#ffffff`     |
-| `--popper-theme-text-color`             | `inherit`     |
-| `--popper-theme-border-width`           | `1px`         |
-| `--popper-theme-border-style`           | `solid`       |
-| `--popper-theme-border-color`           | `#ffffff`     |
-| `--popper-theme-border-radius`          | `5px`         |
-| `--popper-theme-padding`                | `12px`        |
+| CSS variable                            | Default value                         |
+| --------------------------------------- | ------------------------------------- |
+| `--popper-theme-background-color`       | `#ffffff`                             |
+| `--popper-theme-background-color-hover` | `#ffffff`                             |
+| `--popper-theme-text-color`             | `inherit`                             |
+| `--popper-theme-border-width`           | `1px`                                 |
+| `--popper-theme-border-style`           | `solid`                               |
+| `--popper-theme-border-color`           | `#ffffff`                             |
+| `--popper-theme-border-radius`          | `6px`                                 |
+| `--popper-theme-padding`                | `16px`                                |
+| `--popper-theme-shadow`                 | `0 6px 30px -6px rgba(0, 0, 0, 0.25)` |
 
 ### I don't want to use CSS variables
 
