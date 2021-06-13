@@ -8,10 +8,10 @@
 
 ## Documentation
 
-Check out the [documentation](https://valgeirb.github.io/vue-popper/)
+Check out the [documentation](https://valgeirb.github.io/vue3-popper/)
 
-- [Getting started](https://valgeirb.github.io/vue-popper/guide/getting-started.html)
-- [Usage](https://valgeirb.github.io/vue-popper/guide/getting-started.html#usage)
+- [Getting started](https://valgeirb.github.io/vue3-popper/guide/getting-started.html)
+- [Usage](https://valgeirb.github.io/vue3-popper/guide/getting-started.html#usage)
 
 ## Install
 
