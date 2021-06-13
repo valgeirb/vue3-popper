@@ -28,7 +28,6 @@
   } from "vue";
   import usePopper from "../composables/userPopper";
   import clickAway from "../directives/click-away";
-  import "../theme.css";
   /**
    * The Popper component.
    */
@@ -152,6 +151,18 @@
     },
   });
 </script>
+
+<style>
+  :root {
+    --popper-theme-background-color: #ffffff;
+    --popper-theme-background-color-hover: #ffffff;
+    --popper-theme-text-color: inherit;
+    --popper-theme-border: none;
+    --popper-theme-border-radius: 6px;
+    --popper-theme-padding: 16px;
+    --popper-theme-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
+  }
+</style>
 
 <style scoped>
   #arrow,

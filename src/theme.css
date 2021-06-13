@@ -1,9 +1,0 @@
-:root {
-  --popper-theme-background-color: #ffffff;
-  --popper-theme-background-color-hover: #ffffff;
-  --popper-theme-text-color: inherit;
-  --popper-theme-border: none;
-  --popper-theme-border-radius: 5px;
-  --popper-theme-padding: 12px;
-  --popper-theme-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
-}

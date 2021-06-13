@@ -1,7 +1,7 @@
 const { description } = require("../../package");
 
 module.exports = {
-  base: "/vue-popper/",
+  base: "/vue3-popper/",
   title: "Vue Popper",
   description: description,
   /**
