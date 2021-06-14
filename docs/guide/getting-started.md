@@ -75,7 +75,7 @@ You can add Popper to any of your elements or components. Just wrap them with `P
 
 ### What about styles?
 
-`Popper` comes with a list of predefined CSS variables. You can overwrite these variables to suit your needs.
+`Popper` comes with a list of predefined CSS variables with sensible defaults. If you want, you can overwrite these variables to suit your needs.
 
 #### CSS variables
 
@@ -89,17 +89,12 @@ You can add Popper to any of your elements or components. Just wrap them with `P
 | `--popper-theme-padding`                | 16px                                |
 | `--popper-theme-shadow`                 | 0 6px 30px -6px rgba(0, 0, 0, 0.25) |
 
-Using these variables, you could for example create a `theme.css` file:
+Using these variables, you could for example create a `theme.css` file and overwrite some properties:
 
 ```css
 :root {
-  --popper-theme-background-color: #ffffff;
-  --popper-theme-background-color-hover: #ffffff;
-  --popper-theme-text-color: inherit;
-  --popper-theme-border: none;
-  --popper-theme-border-radius: 6px;
-  --popper-theme-padding: 16px;
-  --popper-theme-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
+  --popper-theme-background-color: red;
+  --popper-theme-text-color: white;
 }
 ```
 
