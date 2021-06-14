@@ -5,6 +5,8 @@ import flip from "@popperjs/core/lib/modifiers/flip.js";
 import offset from "@popperjs/core/lib/modifiers/offset";
 import arrow from "@popperjs/core/lib/modifiers/arrow";
 
+const toInt = x => parseInt(x, 10);
+
 export default function usePopper(options) {
   const isOpen = ref(false);
   const popperInstance = ref(null);
@@ -41,11 +43,20 @@ export default function usePopper(options) {
         preventOverflow,
         flip,
         arrow,
+        {
+          name: "arrow",
+          options: {
+            padding: toInt(options.arrowPadding.value),
+          },
+        },
         offset,
         {
           name: "offset",
           options: {
-            offset: [0, options.offset.value],
+            offset: [
+              toInt(options.offsetX.value),
+              toInt(options.offsetY.value),
+            ],
           },
         },
       ],

@@ -67,7 +67,11 @@
       /**
        * Customize the [offset](https://popper.js.org/docs/v2/modifiers/offset/) of the popper
        */
-      offset: {
+      offsetX: {
+        type: String,
+        default: "0",
+      },
+      offsetY: {
         type: String,
         default: "12",
       },
@@ -85,6 +89,13 @@
         type: Boolean,
         default: false,
       },
+      /**
+       * Stop arrow from reaching the edge of the Popper
+       */
+      arrowPadding: {
+        type: String,
+        default: "0",
+      },
     },
     setup(props, { slots, emit }) {
       const children = slots.default();
@@ -95,7 +106,7 @@
         );
       }
 
-      const { offset, placement } = toRefs(props);
+      const { offsetX, offsetY, arrowPadding, placement } = toRefs(props);
 
       const {
         isOpen,
@@ -105,7 +116,7 @@
         popperInstance,
         popperNode,
         triggerNode,
-      } = usePopper({ offset, placement });
+      } = usePopper({ offsetX, offsetY, arrowPadding, placement });
 
       const listeners = computed(() => {
         const hover = {
@@ -157,7 +168,7 @@
     --popper-theme-background-color: #ffffff;
     --popper-theme-background-color-hover: #ffffff;
     --popper-theme-text-color: inherit;
-    --popper-theme-border: none;
+    --popper-theme-border: 1px solid #efefef;
     --popper-theme-border-radius: 6px;
     --popper-theme-padding: 16px;
     --popper-theme-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
