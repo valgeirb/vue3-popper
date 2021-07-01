@@ -1,0 +1,1 @@
+import{o as e,c as t,a}from"./app.e938a04c.js";const r='{"title":"What is Vue Popper","description":"","frontmatter":{},"headers":[{"level":2,"title":"Features","slug":"features"}],"relativePath":"guide/what-is-vue-popper.md","lastUpdated":1625161559098}',p={},o=a('',5);p.render=function(a,r,p,s,i,l){return e(),t("div",null,[o])};export default p;export{r as __pageData};
