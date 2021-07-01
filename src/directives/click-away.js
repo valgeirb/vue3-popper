@@ -1,10 +1,13 @@
-const clickAway = {
+export default {
   beforeMount: (el, binding) => {
     el.clickAwayEvent = event => {
       // Clicked outside of the element and its children
-      if (!(el == event.target || el.contains(event.target))) {
+      if (
+        !(el == event.target || el.contains(event.target)) &&
+        binding.value.enabled
+      ) {
         // Call the provided method
-        binding.value();
+        binding.value.handler();
       }
     };
     document.addEventListener("click", el.clickAwayEvent);
@@ -13,5 +16,3 @@ const clickAway = {
     document.removeEventListener("click", el.clickAwayEvent);
   },
 };
-
-export default clickAway;

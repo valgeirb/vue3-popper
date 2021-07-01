@@ -1,4 +1,4 @@
-import { ref, watch, nextTick } from "vue";
+import { ref, watch, nextTick, onBeforeUnmount } from "vue";
 import { createPopper } from "@popperjs/core/lib/popper-lite.js";
 import preventOverflow from "@popperjs/core/lib/modifiers/preventOverflow.js";
 import flip from "@popperjs/core/lib/modifiers/flip.js";
@@ -7,29 +7,39 @@ import arrow from "@popperjs/core/lib/modifiers/arrow";
 
 const toInt = x => parseInt(x, 10);
 
-export default function usePopper(options) {
+export default function usePopper({
+  placement,
+  arrowPadding,
+  offsetX,
+  offsetY,
+  emit,
+}) {
   const isOpen = ref(false);
   const popperInstance = ref(null);
   const popperNode = ref(null);
   const triggerNode = ref(null);
 
-  const hide = () => {
+  const close = () => {
+    if (!isOpen.value) {
+      return;
+    }
     isOpen.value = false;
+    emit("close:popper");
   };
 
-  const show = () => {
+  const open = () => {
     if (isOpen.value) {
       return;
     }
-
     isOpen.value = true;
+    emit("open:popper");
   };
 
   const toggle = () => {
-    isOpen.value ? hide() : show();
+    isOpen.value ? close() : open();
   };
 
-  watch(isOpen, async isOpen => {
+  watch([isOpen, placement], async ([isOpen]) => {
     if (isOpen) {
       await nextTick();
       initializePopper();
@@ -38,7 +48,7 @@ export default function usePopper(options) {
 
   const initializePopper = () => {
     popperInstance.value = createPopper(triggerNode.value, popperNode.value, {
-      placement: options.placement.value,
+      placement: placement.value,
       modifiers: [
         preventOverflow,
         flip,
@@ -46,17 +56,14 @@ export default function usePopper(options) {
         {
           name: "arrow",
           options: {
-            padding: toInt(options.arrowPadding.value),
+            padding: toInt(arrowPadding.value),
           },
         },
         offset,
         {
           name: "offset",
           options: {
-            offset: [
-              toInt(options.offsetX.value),
-              toInt(options.offsetY.value),
-            ],
+            offset: [toInt(offsetX.value), toInt(offsetY.value)],
           },
         },
       ],
@@ -65,13 +72,16 @@ export default function usePopper(options) {
     popperInstance.value.update();
   };
 
+  onBeforeUnmount(() => {
+    popperInstance.value && popperInstance.value.destroy();
+  });
+
   return {
-    isOpen,
-    hide,
-    show,
-    toggle,
-    popperInstance,
     popperNode,
     triggerNode,
+    isOpen,
+    toggle,
+    open,
+    close,
   };
 }

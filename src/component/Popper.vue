@@ -1,6 +1,15 @@
 <template>
-  <div v-click-away="hide">
-    <div ref="triggerNode" v-on="listeners" class="inline-block">
+  <div v-click-away="{ handler: close, enabled: !disableClickAway }">
+    <div
+      ref="triggerNode"
+      @mouseover="hover && open()"
+      @mouseleave="hover && close()"
+      @click="toggle"
+      @focus="open"
+      @blur="close"
+      @keyup.esc="close"
+      class="inline-block"
+    >
       <!-- The default slot to trigger the popper  -->
       <slot />
     </div>
@@ -11,7 +20,7 @@
         ref="popperNode"
       >
         <!-- A slot for the popper content -->
-        <slot name="content" />
+        <slot name="content" :close="close" />
         <div v-if="arrow" id="arrow" data-popper-arrow></div>
       </div>
     </Transition>
@@ -19,27 +28,22 @@
 </template>
 
 <script>
-  import {
-    defineComponent,
-    computed,
-    onBeforeUnmount,
-    watch,
-    toRefs,
-  } from "vue";
-  import usePopper from "../composables/userPopper";
-  import clickAway from "../directives/click-away";
+  import { defineComponent, toRefs } from "vue";
+  import usePopper from "@/composables";
+  import clickAway from "@/directives";
+
   /**
    * The Popper component.
    */
   export default /*#__PURE__*/ defineComponent({
     name: "Popper",
-    emits: ["show:popper", "hide:popper"],
+    emits: ["open:popper", "close:popper"],
     directives: {
       clickAway,
     },
     props: {
       /**
-       * Preferred [placement](https://popper.js.org/docs/v2/constructors/#options)
+       * Preferred placement
        */
       placement: {
         type: String,
@@ -64,8 +68,12 @@
           ].includes(value);
         },
       },
+      disableClickAway: {
+        type: Boolean,
+        default: false,
+      },
       /**
-       * Customize the [offset](https://popper.js.org/docs/v2/modifiers/offset/) of the popper
+       * Customize the offset of the popper
        */
       offsetX: {
         type: String,
@@ -76,7 +84,7 @@
         default: "12",
       },
       /**
-       * Show the popper on hover
+       * Open the popper on hover
        */
       hover: {
         type: Boolean,
@@ -109,78 +117,33 @@
       const { offsetX, offsetY, arrowPadding, placement } = toRefs(props);
 
       const {
-        isOpen,
-        hide,
-        show,
-        toggle,
-        popperInstance,
         popperNode,
         triggerNode,
-      } = usePopper({ offsetX, offsetY, arrowPadding, placement });
-
-      const listeners = computed(() => {
-        const hover = {
-          mouseover: show,
-          mouseleave: hide,
-        };
-
-        const onClick = {
-          click: toggle,
-        };
-
-        return {
-          ...((props.hover && hover) || onClick),
-          focus: () => {
-            show();
-          },
-          blur: () => {
-            hide();
-          },
-        };
-      });
-
-      watch(isOpen, isOpen => {
-        if (isOpen) {
-          emit("show:popper");
-        } else {
-          emit("hide:popper");
-        }
-      });
-
-      onBeforeUnmount(() => {
-        popperInstance.value && popperInstance.value.destroy();
-      });
+        isOpen,
+        toggle,
+        open,
+        close,
+      } = usePopper({ offsetX, offsetY, arrowPadding, placement, emit });
 
       return {
-        isOpen,
         popperNode,
         triggerNode,
+        isOpen,
         toggle,
-        hide,
-        listeners,
+        open,
+        close,
       };
     },
   });
 </script>
 
-<style>
-  :root {
-    --popper-theme-background-color: #ffffff;
-    --popper-theme-background-color-hover: #ffffff;
-    --popper-theme-text-color: inherit;
-    --popper-theme-border: 1px solid #efefef;
-    --popper-theme-border-radius: 6px;
-    --popper-theme-padding: 16px;
-    --popper-theme-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
-  }
-</style>
-
 <style scoped>
   #arrow,
   #arrow::before {
     position: absolute;
-    width: 8px;
-    height: 8px;
+    width: calc(8px - var(--popper-theme-border-width, 0px));
+    height: calc(8px - var(--popper-theme-border-width, 0px));
+    box-sizing: border-box;
     background: var(--popper-theme-background-color);
   }
 
@@ -194,20 +157,52 @@
     transform: rotate(45deg);
   }
 
+  /* Top arrow */
   .popper[data-popper-placement^="top"] > #arrow {
     bottom: -4px;
   }
 
+  .popper[data-popper-placement^="top"] > #arrow::before {
+    border-right: var(--popper-theme-border-width)
+      var(--popper-theme-border-style) var(--popper-theme-border-color);
+    border-bottom: var(--popper-theme-border-width)
+      var(--popper-theme-border-style) var(--popper-theme-border-color);
+  }
+
+  /* Bottom arrow */
   .popper[data-popper-placement^="bottom"] > #arrow {
     top: -4px;
   }
 
+  .popper[data-popper-placement^="bottom"] > #arrow::before {
+    border-left: var(--popper-theme-border-width)
+      var(--popper-theme-border-style) var(--popper-theme-border-color);
+    border-top: var(--popper-theme-border-width)
+      var(--popper-theme-border-style) var(--popper-theme-border-color);
+  }
+
+  /* Left arrow */
   .popper[data-popper-placement^="left"] > #arrow {
     right: -4px;
   }
 
+  .popper[data-popper-placement^="left"] > #arrow::before {
+    border-right: var(--popper-theme-border-width)
+      var(--popper-theme-border-style) var(--popper-theme-border-color);
+    border-top: var(--popper-theme-border-width)
+      var(--popper-theme-border-style) var(--popper-theme-border-color);
+  }
+
+  /* Right arrow */
   .popper[data-popper-placement^="right"] > #arrow {
     left: -4px;
+  }
+
+  .popper[data-popper-placement^="right"] > #arrow::before {
+    border-left: var(--popper-theme-border-width)
+      var(--popper-theme-border-style) var(--popper-theme-border-color);
+    border-bottom: var(--popper-theme-border-width)
+      var(--popper-theme-border-style) var(--popper-theme-border-color);
   }
 
   .popper {
@@ -215,8 +210,10 @@
     padding: var(--popper-theme-padding);
     color: var(--popper-theme-text-color);
     border-radius: var(--popper-theme-border-radius);
-    border: var(--popper-theme-border);
-    box-shadow: var(--popper-theme-shadow);
+    border-width: var(--popper-theme-border-width);
+    border-style: var(--popper-theme-border-style);
+    border-color: var(--popper-theme-border-color);
+    box-shadow: var(--popper-theme-box-shadow);
   }
 
   .popper:hover,
