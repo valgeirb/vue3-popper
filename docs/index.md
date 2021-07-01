@@ -12,3 +12,5 @@ features:
   - title: 🎨 Themable
     details: Use CSS properties to quickly theme your popper or write your own CSS.
 ---
+
+<popper-demo />

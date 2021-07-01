@@ -2,6 +2,8 @@
 
 `Popper` is a Vue 3 component for displaying popovers. It's written in Vue 3 and uses the latest version of [PopperJS](https://popper.js.org/)
 
+<popper-demo />
+
 ## Features
 
 - Simple API
