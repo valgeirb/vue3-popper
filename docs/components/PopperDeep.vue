@@ -30,7 +30,7 @@
     align-items: center;
     justify-content: center;
   }
-  :deep(.popper) {
+  .popper-container :deep(.popper) {
     background: #e92791;
     padding: 20px;
     border-radius: 20px;
