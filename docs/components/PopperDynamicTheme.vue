@@ -9,7 +9,7 @@
     <Popper :class="theme" placement="right" arrow disableClickAway>
       <Button>Click this</Button>
       <template #content>
-        <div>This is the Popper content</div>
+        <div>This is the Popper content 🍿</div>
       </template>
     </Popper>
   </div>

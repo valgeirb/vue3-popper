@@ -1,9 +1,17 @@
 <template>
   <div class="popper-container">
-    <Popper class="popper-demo" placement="right" arrow>
+    <div>
+      <span>Click the Demo button for a random Popper placement</span>
+    </div>
+    <Popper
+      @open:popper="randomize"
+      class="popper-demo"
+      :placement="randomPlacement"
+      arrow
+    >
       <Button>Demo</Button>
       <template #content>
-        <div>This is the Popper content</div>
+        <div>This is the Popper content 🍿</div>
       </template>
     </Popper>
   </div>
@@ -18,6 +26,35 @@
       Popper,
       Button,
     },
+    data() {
+      return {
+        randomPlacement: "right",
+      };
+    },
+    methods: {
+      randomize() {
+        const placements = [
+          "auto",
+          "auto-start",
+          "auto-end",
+          "top",
+          "top-start",
+          "top-end",
+          "bottom",
+          "bottom-start",
+          "bottom-end",
+          "right",
+          "right-start",
+          "right-end",
+          "left",
+          "left-start",
+          "left-end",
+        ];
+
+        this.randomPlacement =
+          placements[Math.floor(Math.random() * placements.length)];
+      },
+    },
   };
 </script>
 
@@ -27,8 +64,10 @@
     border: 2px dashed #dadada;
     border-radius: 10px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 50px;
   }
 
   .popper-demo {
