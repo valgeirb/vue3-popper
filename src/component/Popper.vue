@@ -43,7 +43,7 @@
     },
     props: {
       /**
-       * Preferred placement
+       * Preferred placement (the "auto" placements will choose the side with most space.)
        */
       placement: {
         type: String,
@@ -68,37 +68,43 @@
           ].includes(value);
         },
       },
+      /**
+       * Disables automatically closing the popover when the user clicks away from it
+       */
       disableClickAway: {
         type: Boolean,
         default: false,
       },
       /**
-       * Customize the offset of the popper
+       * Distance in pixels along the trigger element
        */
       offsetX: {
         type: String,
         default: "0",
       },
+      /**
+       * Distance in pixels away from the trigger element
+       */
       offsetY: {
         type: String,
         default: "12",
       },
       /**
-       * Open the popper on hover
+       * Trigger the popper on hover
        */
       hover: {
         type: Boolean,
         default: false,
       },
       /**
-       * Add an arrow to the popper
+       * Display an arrow on the popper
        */
       arrow: {
         type: Boolean,
         default: false,
       },
       /**
-       * Stop arrow from reaching the edge of the Popper
+       * Stop arrow from reaching the edge of the popper
        */
       arrowPadding: {
         type: String,
@@ -141,8 +147,8 @@
   #arrow,
   #arrow::before {
     position: absolute;
-    width: calc(8px - var(--popper-theme-border-width, 0px));
-    height: calc(8px - var(--popper-theme-border-width, 0px));
+    width: calc(10px - var(--popper-theme-border-width, 0px));
+    height: calc(10px - var(--popper-theme-border-width, 0px));
     box-sizing: border-box;
     background: var(--popper-theme-background-color);
   }
@@ -159,7 +165,7 @@
 
   /* Top arrow */
   .popper[data-popper-placement^="top"] > #arrow {
-    bottom: -4px;
+    bottom: -5px;
   }
 
   .popper[data-popper-placement^="top"] > #arrow::before {
@@ -171,7 +177,7 @@
 
   /* Bottom arrow */
   .popper[data-popper-placement^="bottom"] > #arrow {
-    top: -4px;
+    top: -5px;
   }
 
   .popper[data-popper-placement^="bottom"] > #arrow::before {
@@ -183,7 +189,7 @@
 
   /* Left arrow */
   .popper[data-popper-placement^="left"] > #arrow {
-    right: -4px;
+    right: -5px;
   }
 
   .popper[data-popper-placement^="left"] > #arrow::before {
@@ -195,7 +201,7 @@
 
   /* Right arrow */
   .popper[data-popper-placement^="right"] > #arrow {
-    left: -4px;
+    left: -5px;
   }
 
   .popper[data-popper-placement^="right"] > #arrow::before {
