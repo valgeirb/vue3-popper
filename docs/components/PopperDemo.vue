@@ -27,7 +27,7 @@
 <style scoped>
   .popper-container {
     padding: 50px;
-    margin: 0 20px;
+    margin: 0 20px 20px;
     border: 2px dashed #dadada;
     border-radius: 10px;
     display: flex;
