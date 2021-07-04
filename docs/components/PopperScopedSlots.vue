@@ -1,14 +1,9 @@
 <template>
   <div class="popper-container">
-    <Popper
-      class="popper-styled"
-      @open:popper="randomize"
-      :placement="randomPlacement"
-      arrow
-    >
-      <Button>Click this</Button>
+    <Popper class="popper-styled" arrow>
+      <Button>Demo</Button>
       <template #content="{ close }">
-        <Button @click="close">Click here to close the Popper 🍿</Button>
+        <Button @click="close">Close</Button>
       </template>
     </Popper>
   </div>
@@ -22,35 +17,6 @@
     components: {
       Popper,
       Button,
-    },
-    data() {
-      return {
-        randomPlacement: "right",
-      };
-    },
-    methods: {
-      randomize() {
-        const placements = [
-          "auto",
-          "auto-start",
-          "auto-end",
-          "top",
-          "top-start",
-          "top-end",
-          "bottom",
-          "bottom-start",
-          "bottom-end",
-          "right",
-          "right-start",
-          "right-end",
-          "left",
-          "left-start",
-          "left-end",
-        ];
-
-        this.randomPlacement =
-          placements[Math.floor(Math.random() * placements.length)];
-      },
     },
   };
 </script>

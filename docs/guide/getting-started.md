@@ -41,7 +41,7 @@ Or use it on a case by case basis:
   <Popper>
     <button>Trigger element</button>
     <template #content>
-      <div>This is the Popper content</div>
+      <div>This is the Popper content 🍿</div>
     </template>
   </Popper>
 </template>
@@ -163,10 +163,10 @@ That's fine, you can always just apply your own styles, just make sure it's `sco
 
 ```vue
 <template>
-  <Popper placement="right" arrow>
-    <Button>Click this</Button>
+  <Popper arrow>
+    <Button>Demo</Button>
     <template #content>
-      <div>This is the Popper content</div>
+      <div>This is the Popper content 🍿</div>
     </template>
   </Popper>
 </template>
@@ -235,15 +235,10 @@ Sometimes you need to add some side-effects when closing/opening Poppers. You ca
 
 ```vue
 <template>
-  <Popper
-    placement="right"
-    arrow
-    @open:popper="openAlert"
-    @close:popper="closeAlert"
-  >
-    <Button>Click this</Button>
+  <Popper arrow @open:popper="openAlert" @close:popper="closeAlert">
+    <Button>Demo</Button>
     <template #content>
-      <div>This is the Popper content</div>
+      <div>This is the Popper content 🍿</div>
     </template>
   </Popper>
 </template>
@@ -272,10 +267,10 @@ You can gain access to the `close` function for those edge cases. In this exampl
 
 ```vue
 <template>
-  <Popper placement="right" arrow>
-    <Button>Click this</Button>
+  <Popper arrow>
+    <Button>Demo</Button>
     <template #content="{ close }">
-      <Button @click="close">Click here to close the Popper</Button>
+      <Button @click="close">Close</Button>
     </template>
   </Popper>
 </template>

@@ -6,8 +6,8 @@
       <input type="radio" v-model="theme" id="dark" value="dark" />
       <label for="dark">Dark theme</label>
     </div>
-    <Popper :class="theme" placement="right" arrow disableClickAway>
-      <Button>Click this</Button>
+    <Popper :class="theme" arrow disableClickAway>
+      <Button>Demo</Button>
       <template #content>
         <div>This is the Popper content 🍿</div>
       </template>
@@ -41,6 +41,8 @@
     border: 2px dashed #dadada;
     border-radius: 10px;
     display: flex;
+    flex-direction: column;
+    gap: 20px;
     align-items: center;
     justify-content: space-around;
   }
