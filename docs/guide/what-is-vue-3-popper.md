@@ -1,6 +1,6 @@
-# What is Vue Popper
+# What is Vue 3 Popper
 
-`Popper` is a Vue 3 component for displaying popovers. It's written in Vue 3 and uses the latest version of [PopperJS](https://popper.js.org/)
+`Vue 3 Popper` is a component for displaying popovers. It's written in Vue 3 and uses the latest version of [PopperJS](https://popper.js.org/)
 
 <popper-demo />
 

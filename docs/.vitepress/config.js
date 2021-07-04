@@ -2,7 +2,7 @@ const { description } = require("../../package");
 
 module.exports = {
   base: "/vue3-popper/",
-  title: "Vue Popper",
+  title: "Vue 3 Popper",
   description: description,
   /**
    * Theme configuration, here is the default theme configuration for VuePress.
@@ -37,7 +37,7 @@ function getSidebar() {
     {
       text: "Introduction",
       children: [
-        { text: "What is Vue Popper?", link: "/guide/what-is-vue-popper" },
+        { text: "What is Vue 3 Popper?", link: "/guide/what-is-vue-3-popper" },
         { text: "Getting Started", link: "/guide/getting-started" },
       ],
     },

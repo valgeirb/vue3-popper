@@ -4,7 +4,7 @@
 Like the name suggests, `vue3-popper` is written for Vue 3. There are no plans to support both Vue 2.x and Vue 3.x at the moment.
 :::
 
-You can install Vue Popper by opening your terminal in your project and running the following command:
+You can install `Vue 3 Popper` by opening your terminal in your project and running the following command:
 
 <CodeGroup>
 <CodeBlock title="YARN" active>
@@ -279,5 +279,5 @@ You can gain access to the `close` function for those edge cases. In this exampl
 <popper-scoped-slots />
 
 ::: tip
-Check out the API docs for more info.
+`Vue 3 Popper` has multiple useful props as well, check out the API docs for more info.
 :::
