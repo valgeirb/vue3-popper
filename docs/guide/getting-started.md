@@ -219,7 +219,7 @@ Here's an example of how you can wrap `vue3-popper` with your own component:
   import Popper from "vue3-popper";
 
   export default defineComponent({
-    name: "PopperWrapper",
+    name: "MyPopperWrapper",
     components: {
       Popper,
     },
@@ -227,7 +227,18 @@ Here's an example of how you can wrap `vue3-popper` with your own component:
 </script>
 ```
 
-You could then go on to define your styles etc.
+You could then go on to define your styles etc. and use your component just like you would `Popper`:
+
+```vue
+<template>
+  <MyPopperWrapper arrow placement="right">
+    <Button>Demo</Button>
+    <template #content>
+      <div>This is the Popper content 🍿</div>
+    </template>
+  </MyPopperWrapper>
+</template>
+```
 
 ## Reacting to `Popper` events
 
