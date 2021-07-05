@@ -155,6 +155,17 @@ Using the CSS variables you could even add multiple themes to your popover.
 }
 ```
 
+```vue
+<template>
+  <Popper :class="theme" arrow disableClickAway>
+    <Button>Demo</Button>
+    <template #content>
+      <div>This is the Popper content 🍿</div>
+    </template>
+  </Popper>
+</template>
+```
+
 <popper-dynamic-theme />
 
 ### I don't want to use CSS variables
