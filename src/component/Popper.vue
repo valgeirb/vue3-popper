@@ -15,8 +15,8 @@
     </div>
     <Transition name="fade">
       <div
-        v-if="isOpen"
-        :class="['popper', isOpen ? 'inline-block' : null]"
+        v-show="showPopper"
+        :class="['popper', showPopper ? 'inline-block' : null]"
         ref="popperNode"
       >
         <!-- A slot for the popper content -->
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-  import { defineComponent, toRefs } from "vue";
+  import { computed, defineComponent, toRefs } from "vue";
   import usePopper from "@/composables";
   import clickAway from "@/directives";
 
@@ -131,6 +131,10 @@
         close,
       } = usePopper({ offsetX, offsetY, arrowPadding, placement, emit });
 
+      const showPopper = computed(() => {
+        return isOpen.value && slots.content?.().length;
+      });
+
       return {
         popperNode,
         triggerNode,
@@ -138,6 +142,7 @@
         toggle,
         open,
         close,
+        showPopper,
       };
     },
   });
