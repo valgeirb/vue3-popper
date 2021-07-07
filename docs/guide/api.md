@@ -2,28 +2,31 @@
 
 ## Props
 
-| Name               | Default  | Description                                                                  |
-| ------------------ | -------- | ---------------------------------------------------------------------------- |
-| `placement`        | `bottom` | Preferred placement of the popover                                           |
-| `disableClickAway` | `false`  | Disables automatically closing the popover when the user clicks away from it |
-| `offsetX`          | `0`      | Distance in pixels along the trigger element                                 |
-| `offsetY`          | `12`     | Distance in pixels away from the trigger element                             |
-| `hover`            | `false`  | Trigger the popover on hover                                                 |
-| `arrow`            | `false`  | Display an arrow on the popover                                              |
-| `arrowPadding`     | `0`      | Stop arrow from reaching the edge of the Popper (in pixels)                  |
+| Name               | Default  | Description                                                                 |
+| ------------------ | -------- | --------------------------------------------------------------------------- |
+| `placement`        | `bottom` | Preferred placement of the Popper                                           |
+| `disableClickAway` | `false`  | Disables automatically closing the Popper when the user clicks away from it |
+| `offsetX`          | `0`      | Distance in pixels along the trigger element                                |
+| `offsetY`          | `12`     | Distance in pixels away from the trigger element                            |
+| `hover`            | `false`  | Trigger the Popper on hover                                                 |
+| `arrow`            | `false`  | Display an arrow on the Popper                                              |
+| `arrowPadding`     | `0`      | Stop arrow from reaching the edge of the Popper (in pixels)                 |
+| `disabled`         | `false`  | Disables the Popper. If it was already open, it will be closed.             |
+| `openDelay`        | `0`      | Open the Popper after a delay (ms)                                          |
+| `closeDelay`       | `0`      | Close the Popper after a delay (ms)                                         |
 
 ## Events
 
-| Name           | Description                |
-| -------------- | -------------------------- |
-| `open:popper`  | When the popover is open   |
-| `close:popper` | When the popover is hidden |
+| Name           | Description               |
+| -------------- | ------------------------- |
+| `open:popper`  | When the Popper is open   |
+| `close:popper` | When the Popper is hidden |
 
 ## Slots
 
-| Name      | Description             |
-| --------- | ----------------------- |
-| `content` | For the popover content |
+| Name      | Description            |
+| --------- | ---------------------- |
+| `content` | For the Popper content |
 
 ## Slot props
 

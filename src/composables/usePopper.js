@@ -35,10 +35,6 @@ export default function usePopper({
     emit("open:popper");
   };
 
-  const toggle = () => {
-    isOpen.value ? close() : open();
-  };
-
   watch([isOpen, placement], async ([isOpen]) => {
     if (isOpen) {
       await nextTick();
@@ -80,7 +76,6 @@ export default function usePopper({
     popperNode,
     triggerNode,
     isOpen,
-    toggle,
     open,
     close,
   };

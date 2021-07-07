@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Popper placement="right" arrow>
-      <button style="width: 100px">Click this</button>
+    <Popper arrow>
+      <button>Click this</button>
       <template #content>
         <div>This is the content</div>
       </template>
@@ -24,9 +24,12 @@
 <style>
   #app {
     color: #2c3e50;
-    margin-top: 200px;
+    height: 100vh;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
+    gap: 100px;
   }
   :root {
     --popper-theme-background-color: #ffffff;

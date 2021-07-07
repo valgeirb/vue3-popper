@@ -1,13 +1,13 @@
 <template>
-  <div v-click-away="{ handler: close, enabled: !disableClickAway }">
+  <div v-click-away="{ handler: handleClose, enabled: enableClickAway }">
     <div
       ref="triggerNode"
-      @mouseover="hover && open()"
-      @mouseleave="hover && close()"
-      @click="toggle"
-      @focus="open"
-      @blur="close"
-      @keyup.esc="close"
+      @mouseover="hover && handleOpen()"
+      @mouseleave="hover && handleClose()"
+      @click="handleToggle"
+      @focus="handleOpen"
+      @blur="handleClose"
+      @keyup.esc="handleClose"
       class="inline-block"
     >
       <!-- The default slot to trigger the popper  -->
@@ -31,6 +31,9 @@
   import { computed, defineComponent, toRefs } from "vue";
   import usePopper from "@/composables";
   import clickAway from "@/directives";
+
+  /* Delay execution for a set amount of milliseconds */
+  const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
   /**
    * The Popper component.
@@ -97,6 +100,27 @@
         default: false,
       },
       /**
+       * Disables the Popper. If it was already open, it will be closed.
+       */
+      disabled: {
+        type: Boolean,
+        default: null,
+      },
+      /**
+       * Open the Popper after a delay (ms).
+       */
+      openDelay: {
+        type: [Number, String],
+        default: 0,
+      },
+      /**
+       * Close the Popper after a delay (ms).
+       */
+      closeDelay: {
+        type: [Number, String],
+        default: 0,
+      },
+      /**
        * Display an arrow on the popper
        */
       arrow: {
@@ -120,29 +144,67 @@
         );
       }
 
-      const { offsetX, offsetY, arrowPadding, placement } = toRefs(props);
-
       const {
-        popperNode,
-        triggerNode,
-        isOpen,
-        toggle,
-        open,
-        close,
-      } = usePopper({ offsetX, offsetY, arrowPadding, placement, emit });
+        offsetX,
+        offsetY,
+        arrowPadding,
+        placement,
+        disabled,
+        disableClickAway,
+        openDelay,
+        closeDelay,
+      } = toRefs(props);
+
+      const { popperNode, triggerNode, isOpen, open, close } = usePopper({
+        offsetX,
+        offsetY,
+        arrowPadding,
+        placement,
+        emit,
+      });
+
+      const handleOpen = async () => {
+        // Do not open if Popper is disabled
+        if (disabled.value) {
+          return;
+        }
+
+        await delay(openDelay.value);
+        open();
+      };
+
+      const handleClose = async () => {
+        await delay(closeDelay.value);
+        close();
+      };
+
+      const handleToggle = () => {
+        isOpen.value ? handleClose() : handleOpen();
+      };
 
       const showPopper = computed(() => {
-        return isOpen.value && slots.content?.().length;
+        // Do not show the Popper if it is disabled (if it was already open, it will be closed)
+        if (disabled.value) {
+          close();
+          return false;
+        } else {
+          // Show the Popper if it is open and has some content
+          return isOpen.value && slots.content?.().length;
+        }
       });
+
+      const enableClickAway = computed(() => !disableClickAway.value);
 
       return {
         popperNode,
         triggerNode,
         isOpen,
-        toggle,
-        open,
         close,
+        handleToggle,
+        handleOpen,
+        handleClose,
         showPopper,
+        enableClickAway,
       };
     },
   });
