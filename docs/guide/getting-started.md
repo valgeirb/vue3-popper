@@ -97,16 +97,41 @@ You can add Popper to any of your elements or components. Just wrap them with `P
 | `--popper-theme-padding`                | 16px                                |
 | `--popper-theme-box-shadow`             | 0 6px 30px -6px rgba(0, 0, 0, 0.25) |
 
-Using these variables, you could for example create a `theme.css` file and overwrite some properties:
+You can overwrite them any way you like, for example in a Vue component:
+
+```vue
+<template>
+  <Popper>
+    <Button>Demo</Button>
+    <template #content>
+      <div>This is the Popper content 🍿</div>
+    </template>
+  </Popper>
+</template>
+
+<style>
+  :root {
+    --popper-theme-background-color: #333333;
+    --popper-theme-background-color-hover: #333333;
+    --popper-theme-text-color: #ffffff;
+    --popper-theme-border-width: 0px;
+    --popper-theme-border-style: solid;
+    --popper-theme-border-radius: 6px;
+    --popper-theme-padding: 32px;
+    --popper-theme-box-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
+  }
+</style>
+```
+
+You could also create a `theme.css` file:
 
 ```css
 :root {
-  --popper-theme-background-color: #ffffff;
-  --popper-theme-background-color-hover: #ffffff;
-  --popper-theme-text-color: #333333;
-  --popper-theme-border-width: 1px;
+  --popper-theme-background-color: #333333;
+  --popper-theme-background-color-hover: #333333;
+  --popper-theme-text-color: #ffffff;
+  --popper-theme-border-width: 0px;
   --popper-theme-border-style: solid;
-  --popper-theme-border-color: #dadada;
   --popper-theme-border-radius: 6px;
   --popper-theme-padding: 32px;
   --popper-theme-box-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
@@ -216,9 +241,14 @@ It is generally a good idea to wrap 3rd party components like `vue3-popper` with
 
 Here's an example of how you can wrap `vue3-popper` with your own component:
 
+::: tip
+Notice that in this example, `hover`, `openDelay` and `closeDelay` are all hardcoded. This is just to show how you can create an **opinionated** wrapper.
+:::
+
 ```vue
 <template>
-  <Popper v-bind="$attrs">
+  <!-- Hardcoded "hover", "openDelay" and "closeDelay" -->
+  <Popper v-bind="$attrs" hover openDelay="200" closeDelay="100">
     <template v-for="(_, slot) of $slots" v-slot:[slot]="scope">
       <slot :name="slot" v-bind="scope" />
     </template>
