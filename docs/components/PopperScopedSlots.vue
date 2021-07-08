@@ -1,6 +1,6 @@
 <template>
   <div class="popper-container">
-    <Popper class="popper-styled" arrow>
+    <Popper class="popper-scoped-slots" arrow>
       <Button>Demo</Button>
       <template #content="{ close }">
         <Button @click="close">Close</Button>
@@ -31,7 +31,7 @@
     justify-content: center;
   }
 
-  .popper-styled {
+  .popper-scoped-slots {
     --popper-theme-background-color: #ffffff;
     --popper-theme-background-color-hover: #ffffff;
     --popper-theme-text-color: #333333;
