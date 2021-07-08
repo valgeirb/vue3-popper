@@ -15,8 +15,8 @@
     </div>
     <Transition name="fade">
       <div
-        v-show="showPopper"
-        :class="['popper', showPopper ? 'inline-block' : null]"
+        v-show="shouldShowPopper"
+        :class="['popper', shouldShowPopper ? 'inline-block' : null]"
         ref="popperNode"
       >
         <!-- A slot for the popper content -->
@@ -28,8 +28,8 @@
 </template>
 
 <script>
-  import { computed, defineComponent, toRefs } from "vue";
-  import usePopper from "@/composables";
+  import { computed, defineComponent, toRefs, watch } from "vue";
+  import { usePopper, useContent } from "@/composables";
   import clickAway from "@/directives";
 
   /* Delay execution for a set amount of milliseconds */
@@ -104,7 +104,7 @@
        */
       disabled: {
         type: Boolean,
-        default: null,
+        default: false,
       },
       /**
        * Open the Popper after a delay (ms).
@@ -163,9 +163,16 @@
         emit,
       });
 
+      const { hasContent } = useContent(slots, popperNode);
+
+      watch([hasContent, disabled], ([hasContent, disabled]) => {
+        if (isOpen.value && (!hasContent || disabled)) {
+          close();
+        }
+      });
+
       const handleOpen = async () => {
-        // Do not open if Popper is disabled
-        if (disabled.value) {
+        if (invalid.value) {
           return;
         }
 
@@ -182,17 +189,8 @@
         isOpen.value ? handleClose() : handleOpen();
       };
 
-      const showPopper = computed(() => {
-        // Do not show the Popper if it is disabled (if it was already open, it will be closed)
-        if (disabled.value) {
-          close();
-          return false;
-        } else {
-          // Show the Popper if it is open and has some content
-          return isOpen.value && slots.content?.().length;
-        }
-      });
-
+      const invalid = computed(() => disabled.value || !hasContent.value);
+      const shouldShowPopper = computed(() => isOpen.value && !invalid.value);
       const enableClickAway = computed(() => !disableClickAway.value);
 
       return {
@@ -203,7 +201,7 @@
         handleToggle,
         handleOpen,
         handleClose,
-        showPopper,
+        shouldShowPopper,
         enableClickAway,
       };
     },
@@ -213,6 +211,7 @@
 <style scoped>
   #arrow,
   #arrow::before {
+    transition: background 250ms ease-in-out;
     position: absolute;
     width: calc(10px - var(--popper-theme-border-width, 0px));
     height: calc(10px - var(--popper-theme-border-width, 0px));
@@ -279,6 +278,7 @@
   }
 
   .popper {
+    transition: background 250ms ease-in-out;
     background: var(--popper-theme-background-color);
     padding: var(--popper-theme-padding);
     color: var(--popper-theme-text-color);

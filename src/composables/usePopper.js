@@ -1,4 +1,4 @@
-import { ref, watch, nextTick, onBeforeUnmount } from "vue";
+import { toRefs, watch, nextTick, onBeforeUnmount, reactive } from "vue";
 import { createPopper } from "@popperjs/core/lib/popper-lite.js";
 import preventOverflow from "@popperjs/core/lib/modifiers/preventOverflow.js";
 import flip from "@popperjs/core/lib/modifiers/flip.js";
@@ -14,28 +14,33 @@ export default function usePopper({
   offsetY,
   emit,
 }) {
-  const isOpen = ref(false);
-  const popperInstance = ref(null);
-  const popperNode = ref(null);
-  const triggerNode = ref(null);
+  const state = reactive({
+    isOpen: false,
+    popperInstance: null,
+    popperNode: null,
+    triggerNode: null,
+  });
 
   const close = () => {
-    if (!isOpen.value) {
+    if (!state.isOpen) {
       return;
     }
-    isOpen.value = false;
+
+    state.isOpen = false;
     emit("close:popper");
   };
 
   const open = () => {
-    if (isOpen.value) {
+    if (state.isOpen) {
       return;
     }
-    isOpen.value = true;
+
+    state.isOpen = true;
     emit("open:popper");
   };
 
-  watch([isOpen, placement], async ([isOpen]) => {
+  // Initialize Popper when isOpen, placement change
+  watch([() => state.isOpen, placement], async ([isOpen]) => {
     if (isOpen) {
       await nextTick();
       initializePopper();
@@ -43,7 +48,7 @@ export default function usePopper({
   });
 
   const initializePopper = () => {
-    popperInstance.value = createPopper(triggerNode.value, popperNode.value, {
+    state.popperInstance = createPopper(state.triggerNode, state.popperNode, {
       placement: placement.value,
       modifiers: [
         preventOverflow,
@@ -65,17 +70,15 @@ export default function usePopper({
       ],
     });
 
-    popperInstance.value.update();
+    state.popperInstance.update();
   };
 
   onBeforeUnmount(() => {
-    popperInstance.value && popperInstance.value.destroy();
+    state.popperInstance?.destroy();
   });
 
   return {
-    popperNode,
-    triggerNode,
-    isOpen,
+    ...toRefs(state),
     open,
     close,
   };
