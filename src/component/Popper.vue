@@ -20,7 +20,7 @@
         ref="popperNode"
       >
         <!-- A slot for the popper content -->
-        <slot name="content" :close="close" />
+        <slot name="content" :close="close" :isOpen="modifiedIsOpen" />
         <div v-if="arrow" id="arrow" data-popper-arrow></div>
       </div>
     </Transition>
@@ -28,7 +28,8 @@
 </template>
 
 <script>
-  import { computed, defineComponent, toRefs, watch } from "vue";
+  import { debounce } from "debounce";
+  import { ref, computed, defineComponent, toRefs, watch } from "vue";
   import { usePopper, useContent } from "@/composables";
   import clickAway from "@/directives";
 
@@ -144,6 +145,10 @@
         );
       }
 
+      const popperNode = ref(null);
+      const triggerNode = ref(null);
+      const modifiedIsOpen = ref(false);
+
       const {
         offsetX,
         offsetY,
@@ -155,7 +160,9 @@
         closeDelay,
       } = toRefs(props);
 
-      const { popperNode, triggerNode, isOpen, open, close } = usePopper({
+      const { isOpen, open, close } = usePopper({
+        popperNode,
+        triggerNode,
         offsetX,
         offsetY,
         arrowPadding,
@@ -165,9 +172,28 @@
 
       const { hasContent } = useContent(slots, popperNode);
 
+      /**
+       * If Popper is open, we automatically close it if it becomes
+       * disabled or without content.
+       */
       watch([hasContent, disabled], ([hasContent, disabled]) => {
         if (isOpen.value && (!hasContent || disabled)) {
           close();
+        }
+      });
+
+      /**
+       * In order to eliminate flickering or visibly empty Poppers due to
+       * the transition when using the isOpen slot property, we need to return a
+       * separate debounced value based on isOpen.
+       */
+      watch(isOpen, isOpen => {
+        if (isOpen) {
+          modifiedIsOpen.value = true;
+        } else {
+          debounce(() => {
+            modifiedIsOpen.value = false;
+          }, 200);
         }
       });
 
@@ -203,6 +229,7 @@
         handleClose,
         shouldShowPopper,
         enableClickAway,
+        modifiedIsOpen,
       };
     },
   });
