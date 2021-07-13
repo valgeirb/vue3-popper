@@ -8,6 +8,8 @@ import arrow from "@popperjs/core/lib/modifiers/arrow";
 const toInt = x => parseInt(x, 10);
 
 export default function usePopper({
+  popperNode,
+  triggerNode,
   placement,
   arrowPadding,
   offsetX,
@@ -17,8 +19,6 @@ export default function usePopper({
   const state = reactive({
     isOpen: false,
     popperInstance: null,
-    popperNode: null,
-    triggerNode: null,
   });
 
   const close = () => {
@@ -48,7 +48,7 @@ export default function usePopper({
   });
 
   const initializePopper = () => {
-    state.popperInstance = createPopper(state.triggerNode, state.popperNode, {
+    state.popperInstance = createPopper(triggerNode.value, popperNode.value, {
       placement: placement.value,
       modifiers: [
         preventOverflow,

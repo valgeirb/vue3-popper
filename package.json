@@ -1,6 +1,6 @@
 {
   "name": "vue3-popper",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "author": {
     "name": "Valgeir Björnsson",
     "email": "valgeir@hey.com",
@@ -37,7 +37,8 @@
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife"
   },
   "dependencies": {
-    "@popperjs/core": "^2.9.2"
+    "@popperjs/core": "^2.9.2",
+    "debounce": "^1.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

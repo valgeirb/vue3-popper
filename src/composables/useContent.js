@@ -1,7 +1,6 @@
 import { ref, onMounted, onBeforeUnmount } from "vue";
-
 export default function useContent(slots, popperNode) {
-  const observer = ref(null);
+  let observer = null;
   const hasContent = ref(false);
 
   onMounted(() => {
@@ -9,14 +8,14 @@ export default function useContent(slots, popperNode) {
       hasContent.value = true;
     }
 
-    observer.value = new MutationObserver(checkContent);
-    observer.value.observe(popperNode.value, {
+    observer = new MutationObserver(checkContent);
+    observer.observe(popperNode.value, {
       childList: true,
       subtree: true,
     });
   });
 
-  onBeforeUnmount(() => observer.value.disconnect());
+  onBeforeUnmount(() => observer.disconnect());
 
   const checkContent = () => {
     if (slots.content) {
