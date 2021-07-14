@@ -6,6 +6,8 @@
     "email": "valgeir@hey.com",
     "url": "https://github.com/valgeirb"
   },
+  "repository": "github:valgeirb/vue3-popper",
+  "homepage": "https://valgeirb.github.io/vue3-popper/",
   "license": "MIT",
   "description": "A Vue 3 popper component. Uses PopperJS v2.",
   "keywords": [
