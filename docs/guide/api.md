@@ -2,18 +2,19 @@
 
 ## Props
 
-| Name               | Default  | Description                                                                 |
-| ------------------ | -------- | --------------------------------------------------------------------------- |
-| `placement`        | `bottom` | Preferred placement of the Popper                                           |
-| `disableClickAway` | `false`  | Disables automatically closing the Popper when the user clicks away from it |
-| `offsetX`          | `0`      | Distance in pixels along the trigger element                                |
-| `offsetY`          | `12`     | Distance in pixels away from the trigger element                            |
-| `hover`            | `false`  | Trigger the Popper on hover                                                 |
-| `arrow`            | `false`  | Display an arrow on the Popper                                              |
-| `arrowPadding`     | `0`      | Stop arrow from reaching the edge of the Popper (in pixels)                 |
-| `disabled`         | `false`  | Disables the Popper. If it was already open, it will be closed.             |
-| `openDelay`        | `0`      | Open the Popper after a delay (ms)                                          |
-| `closeDelay`       | `0`      | Close the Popper after a delay (ms)                                         |
+| Name               | Default  | Description                                                                        |
+| ------------------ | -------- | ---------------------------------------------------------------------------------- |
+| `placement`        | `bottom` | Preferred placement of the Popper                                                  |
+| `disableClickAway` | `false`  | Disables automatically closing the Popper when the user clicks away from it        |
+| `offsetSkid`       | `0`      | Offset in pixels along the trigger element                                         |
+| `offsetDistance`   | `12`     | Offset in pixels away from the trigger element                                     |
+| `hover`            | `false`  | Trigger the Popper on hover                                                        |
+| `arrow`            | `false`  | Display an arrow on the Popper                                                     |
+| `arrowPadding`     | `0`      | Stop arrow from reaching the edge of the Popper (in pixels)                        |
+| `disabled`         | `false`  | Disables the Popper. If it was already open, it will be closed.                    |
+| `openDelay`        | `0`      | Open the Popper after a delay (ms)                                                 |
+| `closeDelay`       | `0`      | Close the Popper after a delay (ms)                                                |
+| `interactive`      | `true`   | If the Popper should be interactive, it will close when clicked/hovered when false |
 
 ## Events
 
@@ -32,9 +33,10 @@
 
 The `content` slot gives you access to useful variables and functions.
 
-| Name    | Type     | Description                    |
-| ------- | -------- | ------------------------------ |
-| `close` | function | A function to close the Popper |
+| Name     | Type     | Description                    |
+| -------- | -------- | ------------------------------ |
+| `close`  | function | A function to close the Popper |
+| `isOpen` | boolean  | The `open` state of the Popper |
 
 ## CSS variables
 
