@@ -3,11 +3,8 @@
     <div class="text-center">
       <span>Click the Demo button to show the Popper</span>
     </div>
-    <Popper class="popper-demo" arrow>
+    <Popper class="popper-demo" arrow content="This is the Popper content 🍿">
       <Button>Demo</Button>
-      <template #content>
-        <div>This is the Popper content 🍿</div>
-      </template>
     </Popper>
   </div>
 </template>

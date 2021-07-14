@@ -6,11 +6,13 @@
       <input type="radio" v-model="theme" id="dark" value="dark" />
       <label for="dark">Dark theme</label>
     </div>
-    <Popper :class="theme" arrow disableClickAway>
+    <Popper
+      :class="theme"
+      arrow
+      disableClickAway
+      content="This is the Popper content 🍿"
+    >
       <Button>Demo</Button>
-      <template #content>
-        <div>This is the Popper content 🍿</div>
-      </template>
     </Popper>
   </div>
 </template>
