@@ -12,8 +12,8 @@ export default function usePopper({
   triggerNode,
   placement,
   arrowPadding,
-  offsetX,
-  offsetY,
+  offsetSkid,
+  offsetDistance,
   emit,
 }) {
   const state = reactive({
@@ -64,7 +64,7 @@ export default function usePopper({
         {
           name: "offset",
           options: {
-            offset: [toInt(offsetX.value), toInt(offsetY.value)],
+            offset: [toInt(offsetSkid.value), toInt(offsetDistance.value)],
           },
         },
       ],

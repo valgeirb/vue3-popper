@@ -1,9 +1,12 @@
 <template>
-  <div v-click-away="{ handler: handleClose, enabled: enableClickAway }">
+  <div
+    :style="interactiveStyle"
+    @mouseleave="hover && handleClose()"
+    v-click-away="{ handler: handleClose, enabled: enableClickAway }"
+  >
     <div
       ref="triggerNode"
       @mouseover="hover && handleOpen()"
-      @mouseleave="hover && handleClose()"
       @click="handleToggle"
       @focus="handleOpen"
       @blur="handleClose"
@@ -15,6 +18,7 @@
     </div>
     <Transition name="fade">
       <div
+        @click="!interactive && handleToggle()"
         v-show="shouldShowPopper"
         :class="['popper', shouldShowPopper ? 'inline-block' : null]"
         ref="popperNode"
@@ -80,16 +84,16 @@
         default: false,
       },
       /**
-       * Distance in pixels along the trigger element
+       * Offset in pixels along the trigger element
        */
-      offsetX: {
+      offsetSkid: {
         type: String,
         default: "0",
       },
       /**
-       * Distance in pixels away from the trigger element
+       * Offset in pixels away from the trigger element
        */
-      offsetY: {
+      offsetDistance: {
         type: String,
         default: "12",
       },
@@ -135,6 +139,10 @@
         type: String,
         default: "0",
       },
+      interactive: {
+        type: Boolean,
+        default: true,
+      },
     },
     setup(props, { slots, emit }) {
       const children = slots.default();
@@ -150,21 +158,22 @@
       const modifiedIsOpen = ref(false);
 
       const {
-        offsetX,
-        offsetY,
+        offsetSkid,
+        offsetDistance,
         arrowPadding,
         placement,
         disabled,
         disableClickAway,
         openDelay,
         closeDelay,
+        interactive,
       } = toRefs(props);
 
       const { isOpen, open, close } = usePopper({
         popperNode,
         triggerNode,
-        offsetX,
-        offsetY,
+        offsetSkid,
+        offsetDistance,
         arrowPadding,
         placement,
         emit,
@@ -218,6 +227,12 @@
       const invalid = computed(() => disabled.value || !hasContent.value);
       const shouldShowPopper = computed(() => isOpen.value && !invalid.value);
       const enableClickAway = computed(() => !disableClickAway.value);
+      // Add an invisible border to keep the Popper open when hovering from the trigger into it
+      const interactiveStyle = computed(() =>
+        interactive.value
+          ? `border: ${offsetDistance.value}px solid transparent; margin: -${offsetDistance.value}px;`
+          : null,
+      );
 
       return {
         popperNode,
@@ -230,6 +245,8 @@
         shouldShowPopper,
         enableClickAway,
         modifiedIsOpen,
+        interactive,
+        interactiveStyle,
       };
     },
   });
