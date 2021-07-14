@@ -5,11 +5,9 @@
       arrow
       @open:popper="openAlert"
       @close:popper="closeAlert"
+      content="This is the Popper content 🍿"
     >
       <Button>Demo</Button>
-      <template #content>
-        <div>This is the Popper content 🍿</div>
-      </template>
     </Popper>
   </div>
 </template>

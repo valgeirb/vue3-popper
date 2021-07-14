@@ -1,10 +1,7 @@
 <template>
   <div class="popper-container">
-    <Popper class="popper-styled" arrow>
+    <Popper class="popper-styled" arrow content="This is the Popper content 🍿">
       <Button>Demo</Button>
-      <template #content>
-        <div>This is the Popper content 🍿</div>
-      </template>
     </Popper>
   </div>
 </template>

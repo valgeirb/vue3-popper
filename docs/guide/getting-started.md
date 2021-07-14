@@ -38,11 +38,8 @@ Or use it on a case by case basis:
 
 ```html
 <template>
-  <Popper>
+  <Popper content="This is the Popper content 🍿">
     <button>Trigger element</button>
-    <template #content>
-      <div>This is the Popper content 🍿</div>
-    </template>
   </Popper>
 </template>
 
@@ -66,14 +63,30 @@ Add browser example
 
 ## Usage
 
-You can add Popper to any of your elements or components. Just wrap them with `Popper` and use the `#content` slot for your popover:
+You can add Popper to any of your elements or components. Just wrap them with `Popper` and use the `content` prop or slot for your popover.
+
+### Using the content `prop`
+
+If your content is only a simple string, you can use the `content` prop:
+
+```vue
+<template>
+  <Popper content="This is the Popper content">
+    <button>Trigger element</button>
+  </Popper>
+</template>
+```
+
+### Using the content `slot`
+
+If your content is more complex, you can use the `#content` slot:
 
 ```vue
 <template>
   <Popper>
-    <button>Trigger!</button>
+    <button>Trigger element</button>
     <template #content>
-      <div>This is the content</div>
+      <div>This is the Popper content</div>
     </template>
   </Popper>
 </template>
@@ -83,7 +96,7 @@ You can add Popper to any of your elements or components. Just wrap them with `P
 
 `Popper` only comes with some barebones styling by default, but it also uses a list of predefined CSS variables. You can overwrite these variables to suit your needs.
 
-#### CSS variables
+### CSS variables
 
 | CSS variable                            | Example value                       |
 | --------------------------------------- | ----------------------------------- |
@@ -101,11 +114,8 @@ You can overwrite them any way you like, for example in a Vue component:
 
 ```vue
 <template>
-  <Popper>
+  <Popper content="This is the Popper content 🍿">
     <Button>Demo</Button>
-    <template #content>
-      <div>This is the Popper content 🍿</div>
-    </template>
   </Popper>
 </template>
 
@@ -182,11 +192,13 @@ Using the CSS variables you could even add multiple themes to your popover.
 
 ```vue
 <template>
-  <Popper :class="theme" arrow disableClickAway>
+  <Popper
+    :class="theme"
+    arrow
+    disableClickAway
+    content="This is the Popper content 🍿"
+  >
     <Button>Demo</Button>
-    <template #content>
-      <div>This is the Popper content 🍿</div>
-    </template>
   </Popper>
 </template>
 ```
@@ -199,11 +211,8 @@ That's fine, you can always just apply your own styles, just make sure it's `sco
 
 ```vue
 <template>
-  <Popper arrow>
+  <Popper arrow content="This is the Popper content 🍿">
     <Button>Demo</Button>
-    <template #content>
-      <div>This is the Popper content 🍿</div>
-    </template>
   </Popper>
 </template>
 
@@ -287,11 +296,13 @@ Sometimes you need to add some side-effects when closing/opening Poppers. You ca
 
 ```vue
 <template>
-  <Popper arrow @open:popper="openAlert" @close:popper="closeAlert">
+  <Popper
+    arrow
+    @open:popper="openAlert"
+    @close:popper="closeAlert"
+    content="This is the Popper content 🍿"
+  >
     <Button>Demo</Button>
-    <template #content>
-      <div>This is the Popper content 🍿</div>
-    </template>
   </Popper>
 </template>
 

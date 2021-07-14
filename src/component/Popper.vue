@@ -24,7 +24,9 @@
         ref="popperNode"
       >
         <!-- A slot for the popper content -->
-        <slot name="content" :close="close" :isOpen="modifiedIsOpen" />
+        <slot name="content" :close="close" :isOpen="modifiedIsOpen">
+          {{ content }}
+        </slot>
         <div v-if="arrow" id="arrow" data-popper-arrow></div>
       </div>
     </Transition>
@@ -139,9 +141,19 @@
         type: String,
         default: "0",
       },
+      /**
+       * If the Popper should be interactive, it will close when clicked/hovered if false
+       */
       interactive: {
         type: Boolean,
         default: true,
+      },
+      /**
+       * If the content is just a simple string, it can be passed in as a prop
+       */
+      content: {
+        type: String,
+        default: null,
       },
     },
     setup(props, { slots, emit }) {
@@ -167,6 +179,7 @@
         openDelay,
         closeDelay,
         interactive,
+        content,
       } = toRefs(props);
 
       const { isOpen, open, close } = usePopper({
@@ -179,7 +192,7 @@
         emit,
       });
 
-      const { hasContent } = useContent(slots, popperNode);
+      const { hasContent } = useContent(slots, popperNode, content);
 
       /**
        * If Popper is open, we automatically close it if it becomes
@@ -247,6 +260,7 @@
         modifiedIsOpen,
         interactive,
         interactiveStyle,
+        content,
       };
     },
   });
