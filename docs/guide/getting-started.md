@@ -348,12 +348,7 @@ You can use the `show` prop to manually control the Popper. Other events (click,
 ```vue
 <template>
   <div>
-    <Popper
-      class="popper-demo"
-      arrow
-      content="This is the Popper content 🍿"
-      :show="showPopper"
-    >
+    <Popper arrow content="This is the Popper content 🍿" :show="showPopper">
       <Button>Demo</Button>
     </Popper>
     <div>
