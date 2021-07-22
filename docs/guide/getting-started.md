@@ -341,6 +341,42 @@ You can gain access to the `close` function for those edge cases. In this exampl
 
 <popper-scoped-slots />
 
+## Manually controlling the Popper
+
+You can use the `show` prop to manually control the Popper. Other events (click, hover) are ignored when in manual mode.
+
+```vue
+<template>
+  <div>
+    <Popper
+      class="popper-demo"
+      arrow
+      content="This is the Popper content 🍿"
+      :show="showPopper"
+    >
+      <Button>Demo</Button>
+    </Popper>
+    <div>
+      <input id="toggle" type="checkbox" v-model="showPopper" />
+      <label for="toggle">Toggle Popper</label>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: "PopperManual",
+    data() {
+      return {
+        showPopper: true,
+      };
+    },
+  };
+</script>
+```
+
+<popper-manual />
+
 ::: tip
 `Vue 3 Popper` has multiple useful props as well, check out the API docs for more info.
 :::

@@ -5,6 +5,7 @@ import PopperDynamicTheme from "../../components/PopperDynamicTheme.vue";
 import PopperDeep from "../../components/PopperDeep.vue";
 import PopperScopedSlots from "../../components/PopperScopedSlots.vue";
 import PopperDemo from "../../components/PopperDemo.vue";
+import PopperManual from "../../components/PopperManual.vue";
 import CodeBlock from "../../components/CodeBlock.vue";
 import CodeGroup from "../../components/CodeGroup.ts";
 import Button from "../../components/Button.vue";
@@ -18,6 +19,7 @@ export default {
     app.component("PopperDeep", PopperDeep);
     app.component("PopperScopedSlots", PopperScopedSlots);
     app.component("PopperDemo", PopperDemo);
+    app.component("PopperManual", PopperManual);
     app.component("CodeBlock", CodeBlock);
     app.component("CodeGroup", CodeGroup);
     app.component("Button", Button);

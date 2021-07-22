@@ -1,16 +1,15 @@
 <template>
   <div
     :style="interactiveStyle"
-    @mouseleave="hover && handleClose()"
-    v-click-away="{ handler: handleClose, enabled: enableClickAway }"
+    @mouseleave="hover && closePopper()"
+    v-click-away="{ handler: closePopper, enabled: enableClickAway }"
   >
     <div
       ref="triggerNode"
-      @mouseover="hover && handleOpen()"
-      @click="handleToggle"
-      @focus="handleOpen"
-      @blur="handleClose"
-      @keyup.esc="handleClose"
+      @mouseover="hover && openPopper()"
+      @click="togglePopper"
+      @focus="openPopper"
+      @keyup.esc="closePopper"
       class="inline-block"
     >
       <!-- The default slot to trigger the popper  -->
@@ -18,7 +17,7 @@
     </div>
     <Transition name="fade">
       <div
-        @click="!interactive && handleToggle()"
+        @click="!interactive && closePopper()"
         v-show="shouldShowPopper"
         :class="['popper', shouldShowPopper ? 'inline-block' : null]"
         ref="popperNode"
@@ -35,7 +34,14 @@
 
 <script>
   import { debounce } from "debounce";
-  import { ref, computed, defineComponent, toRefs, watch } from "vue";
+  import {
+    ref,
+    computed,
+    defineComponent,
+    toRefs,
+    watch,
+    watchEffect,
+  } from "vue";
   import { usePopper, useContent } from "@/composables";
   import clickAway from "@/directives";
 
@@ -107,6 +113,13 @@
         default: false,
       },
       /**
+       * Manually open/close the Popper, other events are ignored if this prop is set
+       */
+      show: {
+        type: Boolean,
+        default: null,
+      },
+      /**
        * Disables the Popper. If it was already open, it will be closed.
        */
       disabled: {
@@ -170,29 +183,65 @@
       const modifiedIsOpen = ref(false);
 
       const {
-        offsetSkid,
-        offsetDistance,
         arrowPadding,
-        placement,
-        disabled,
-        disableClickAway,
-        openDelay,
         closeDelay,
-        interactive,
         content,
+        disableClickAway,
+        disabled,
+        interactive,
+        show,
+        offsetDistance,
+        offsetSkid,
+        openDelay,
+        placement,
       } = toRefs(props);
 
       const { isOpen, open, close } = usePopper({
+        arrowPadding,
+        emit,
+        offsetDistance,
+        offsetSkid,
+        placement,
         popperNode,
         triggerNode,
-        offsetSkid,
-        offsetDistance,
-        arrowPadding,
-        placement,
-        emit,
       });
 
       const { hasContent } = useContent(slots, popperNode, content);
+
+      const manualMode = computed(() => show.value !== null);
+      const invalid = computed(() => disabled.value || !hasContent.value);
+      const shouldShowPopper = computed(() => isOpen.value && !invalid.value);
+      const enableClickAway = computed(
+        () => !disableClickAway.value && !manualMode.value,
+      );
+      // Add an invisible border to keep the Popper open when hovering from the trigger into it
+      const interactiveStyle = computed(() =>
+        interactive.value
+          ? `border: ${offsetDistance.value}px solid transparent; margin: -${offsetDistance.value}px;`
+          : null,
+      );
+
+      const openPopper = async () => {
+        if (invalid.value || manualMode.value) {
+          return;
+        }
+
+        await delay(openDelay.value);
+        open();
+      };
+
+      const closePopper = async () => {
+        if (manualMode.value) {
+          return;
+        }
+
+        await delay(closeDelay.value);
+        close();
+      };
+
+      const togglePopper = () => {
+        isOpen.value ? closePopper() : openPopper();
+      };
 
       /**
        * If Popper is open, we automatically close it if it becomes
@@ -219,48 +268,30 @@
         }
       });
 
-      const handleOpen = async () => {
-        if (invalid.value) {
-          return;
+      /**
+       * Watch for manual mode
+       */
+      watchEffect(() => {
+        if (manualMode.value) {
+          show.value
+            ? delay(openDelay.value).then(open)
+            : delay(closeDelay.value).then(close);
         }
-
-        await delay(openDelay.value);
-        open();
-      };
-
-      const handleClose = async () => {
-        await delay(closeDelay.value);
-        close();
-      };
-
-      const handleToggle = () => {
-        isOpen.value ? handleClose() : handleOpen();
-      };
-
-      const invalid = computed(() => disabled.value || !hasContent.value);
-      const shouldShowPopper = computed(() => isOpen.value && !invalid.value);
-      const enableClickAway = computed(() => !disableClickAway.value);
-      // Add an invisible border to keep the Popper open when hovering from the trigger into it
-      const interactiveStyle = computed(() =>
-        interactive.value
-          ? `border: ${offsetDistance.value}px solid transparent; margin: -${offsetDistance.value}px;`
-          : null,
-      );
+      });
 
       return {
         popperNode,
         triggerNode,
-        isOpen,
         close,
-        handleToggle,
-        handleOpen,
-        handleClose,
         shouldShowPopper,
         enableClickAway,
         modifiedIsOpen,
         interactive,
         interactiveStyle,
         content,
+        togglePopper,
+        closePopper,
+        openPopper,
       };
     },
   });
