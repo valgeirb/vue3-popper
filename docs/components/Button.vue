@@ -1,5 +1,5 @@
 <template>
-  <button class="button">
+  <button class="button" type="button">
     <slot />
   </button>
 </template>
