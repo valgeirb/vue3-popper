@@ -8,13 +8,13 @@ import arrow from "@popperjs/core/lib/modifiers/arrow";
 const toInt = x => parseInt(x, 10);
 
 export default function usePopper({
+  arrowPadding,
+  emit,
+  offsetDistance,
+  offsetSkid,
+  placement,
   popperNode,
   triggerNode,
-  placement,
-  arrowPadding,
-  offsetSkid,
-  offsetDistance,
-  emit,
 }) {
   const state = reactive({
     isOpen: false,
@@ -40,14 +40,14 @@ export default function usePopper({
   };
 
   // Initialize Popper when isOpen, placement change
-  watch([() => state.isOpen, placement], async ([isOpen]) => {
+  watch([() => state.isOpen, placement], ([isOpen]) => {
     if (isOpen) {
-      await nextTick();
       initializePopper();
     }
   });
 
-  const initializePopper = () => {
+  const initializePopper = async () => {
+    await nextTick();
     state.popperInstance = createPopper(triggerNode.value, popperNode.value, {
       placement: placement.value,
       modifiers: [
