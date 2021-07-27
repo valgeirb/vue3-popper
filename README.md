@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://raw.githubusercontent.com/valgeirb/vue-popper/main/docs/public/popper.svg">
+<img src="https://raw.githubusercontent.com/valgeirb/vue-popper/main/docs/public/popper.svg" height="300px">
 </p>
 
 # vue3-popper
@@ -78,12 +78,13 @@ yarn add vue3-popper
 | `interactive`      | `true`   | If the Popper should be interactive, it will close when clicked/hovered if false                        |
 | `content`          | `null`   | If your content is just a simple string, you can pass it as a prop                                      |
 | `show`             | `null`   | Control the Popper **manually**, other events (click, hover) are ignored if this is set to `true/false` |
+| `zIndex`           | `9999`   | The z-index of the Popper                                                                               |
 
 ## Events
 
 | Name           | Description               |
 | -------------- | ------------------------- |
-| `open:popper`  | When the Popper is open   |
+| `open:popper`  | When the Popper is opened |
 | `close:popper` | When the Popper is hidden |
 
 ## Slots
