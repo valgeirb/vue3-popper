@@ -17,6 +17,7 @@
 | `interactive`      | `true`   | If the Popper should be interactive, it will close when clicked/hovered if false                        |
 | `content`          | `null`   | If your content is just a simple string, you can pass it as a prop                                      |
 | `show`             | `null`   | Control the Popper **manually**, other events (click, hover) are ignored if this is set to `true/false` |
+| `zIndex`           | `9999`   | The z-index of the Popper                                                                               |
 
 ## Events
 
