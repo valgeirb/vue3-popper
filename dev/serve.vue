@@ -6,6 +6,12 @@
         <div>This is the content</div>
       </template>
     </Popper>
+    <Popper arrow teleport="body">
+      <button>Click this</button>
+      <template #content>
+        <div>This is the teleported content</div>
+      </template>
+    </Popper>
   </div>
 </template>
 

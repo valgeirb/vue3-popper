@@ -15,20 +15,22 @@
       <!-- The default slot to trigger the popper  -->
       <slot />
     </div>
-    <Transition name="fade">
-      <div
-        @click="!interactive && closePopper()"
-        v-show="shouldShowPopper"
-        :class="['popper', shouldShowPopper ? 'inline-block' : null]"
-        ref="popperNode"
-      >
-        <!-- A slot for the popper content -->
-        <slot name="content" :close="close" :isOpen="modifiedIsOpen">
-          {{ content }}
-        </slot>
-        <div v-if="arrow" id="arrow" data-popper-arrow></div>
-      </div>
-    </Transition>
+    <PopperTeleportWrapper :teleport="teleport">
+      <Transition name="fade">
+        <div
+          @click="!interactive && closePopper()"
+          v-show="shouldShowPopper"
+          :class="['popper', shouldShowPopper ? 'inline-block' : null]"
+          ref="popperNode"
+        >
+          <!-- A slot for the popper content -->
+          <slot name="content" :close="close" :isOpen="modifiedIsOpen">
+            {{ content }}
+          </slot>
+          <div v-if="arrow" id="arrow" data-popper-arrow></div>
+        </div>
+      </Transition>
+    </PopperTeleportWrapper>
   </div>
 </template>
 
@@ -44,6 +46,7 @@
   } from "vue";
   import { usePopper, useContent } from "@/composables";
   import clickAway from "@/directives";
+  import PopperTeleportWrapper from './PopperTeleportWrapper.vue'
 
   /* Delay execution for a set amount of milliseconds */
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -56,6 +59,9 @@
     emits: ["open:popper", "close:popper"],
     directives: {
       clickAway,
+    },
+    components: {
+      PopperTeleportWrapper,
     },
     props: {
       /**
@@ -172,6 +178,13 @@
        * If the content is just a simple string, it can be passed in as a prop
        */
       content: {
+        type: String,
+        default: null,
+      },
+      /**
+       * Teleport popper element to selector
+       */
+      teleport: {
         type: String,
         default: null,
       },
