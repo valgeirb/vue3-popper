@@ -2,7 +2,7 @@
   <div
     :style="interactiveStyle"
     @mouseleave="hover && closePopper()"
-    v-click-away="{ handler: closePopper, enabled: enableClickAway }"
+    v-click-away="{ handler: closePopper, enabled: enableClickAway, ignore: ['popperNode'] }"
   >
     <div
       ref="triggerNode"
