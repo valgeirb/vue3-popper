@@ -10,6 +10,7 @@ const toInt = x => parseInt(x, 10);
 export default function usePopper({
   arrowPadding,
   emit,
+  locked,
   offsetDistance,
   offsetSkid,
   placement,
@@ -53,6 +54,10 @@ export default function usePopper({
       modifiers: [
         preventOverflow,
         flip,
+        {
+          name: "flip",
+          enabled: !locked.value,
+        },
         arrow,
         {
           name: "arrow",
