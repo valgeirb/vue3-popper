@@ -1,12 +1,12 @@
 <template>
   <div
     :style="interactiveStyle"
-    @mouseleave="hover && closePopper()"
+    @mouseleave="hover && mouseLeave()"
     v-click-away="{ handler: closePopper, enabled: enableClickAway, ignore: ['popperNode'] }"
   >
     <div
       ref="triggerNode"
-      @mouseover="hover && openPopper()"
+      @mouseover="hover && mouseEnter()"
       @click="togglePopper"
       @focus="openPopper"
       @keyup.esc="closePopper"
@@ -18,6 +18,8 @@
     <PopperTeleportWrapper :teleport="teleport">
       <Transition name="fade">
         <div
+          @mouseover="hover && teleport && mouseEnter()"
+          @mouseleave="hover && teleport && mouseLeave()"
           @click="!interactive && closePopper()"
           v-show="shouldShowPopper"
           :class="['popper', shouldShowPopper ? 'inline-block' : null]"
@@ -187,6 +189,24 @@
       teleport: {
         type: String,
         default: null,
+      },
+    },
+    data() {
+      return {
+        isHovered: false,
+      }
+    },
+    methods: {
+      mouseEnter() {
+        this.isHovered = true;
+        this.openPopper();
+      },
+      async mouseLeave() {
+        this.isHovered = false;
+        await delay(50);
+        if(!this.isHovered) {
+          this.closePopper();
+        }
       },
     },
     setup(props, { slots, emit }) {
