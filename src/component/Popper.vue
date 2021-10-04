@@ -169,6 +169,13 @@
         default: true,
       },
       /**
+       * Lock the Popper into place, it will not flip dynamically when it runs out of space if true
+       */
+      locked: {
+        type: Boolean,
+        default: false,
+      },
+      /**
        * If the content is just a simple string, it can be passed in as a prop
        */
       content: {
@@ -196,16 +203,18 @@
         disableClickAway,
         disabled,
         interactive,
-        show,
+        locked,
         offsetDistance,
         offsetSkid,
         openDelay,
         placement,
+        show,
       } = toRefs(props);
 
       const { isOpen, open, close } = usePopper({
         arrowPadding,
         emit,
+        locked,
         offsetDistance,
         offsetSkid,
         placement,
