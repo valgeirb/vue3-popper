@@ -1,12 +1,12 @@
 <template>
   <div
     :style="interactiveStyle"
-    @mouseleave="hover && closePopper()"
-    v-click-away="{ handler: closePopper, enabled: enableClickAway }"
+    @mouseleave="hover && mouseLeave()"
+    v-click-away="{ handler: closePopper, enabled: enableClickAway, ignore: ['popperNode'] }"
   >
     <div
       ref="triggerNode"
-      @mouseover="hover && openPopper()"
+      @mouseover="hover && mouseEnter()"
       @click="togglePopper"
       @focus="openPopper"
       @keyup.esc="closePopper"
@@ -15,20 +15,24 @@
       <!-- The default slot to trigger the popper  -->
       <slot />
     </div>
-    <Transition name="fade">
-      <div
-        @click="!interactive && closePopper()"
-        v-show="shouldShowPopper"
-        :class="['popper', shouldShowPopper ? 'inline-block' : null]"
-        ref="popperNode"
-      >
-        <!-- A slot for the popper content -->
-        <slot name="content" :close="close" :isOpen="modifiedIsOpen">
-          {{ content }}
-        </slot>
-        <div v-if="arrow" id="arrow" data-popper-arrow></div>
-      </div>
-    </Transition>
+    <PopperTeleportWrapper :teleport="teleport">
+      <Transition name="fade">
+        <div
+          @mouseover="hover && teleport && mouseEnter()"
+          @mouseleave="hover && teleport && mouseLeave()"
+          @click="!interactive && closePopper()"
+          v-show="shouldShowPopper"
+          :class="['popper', shouldShowPopper ? 'inline-block' : null]"
+          ref="popperNode"
+        >
+          <!-- A slot for the popper content -->
+          <slot name="content" :close="close" :isOpen="modifiedIsOpen">
+            {{ content }}
+          </slot>
+          <div v-if="arrow" id="arrow" data-popper-arrow></div>
+        </div>
+      </Transition>
+    </PopperTeleportWrapper>
   </div>
 </template>
 
@@ -44,6 +48,7 @@
   } from "vue";
   import { usePopper, useContent } from "@/composables";
   import clickAway from "@/directives";
+  import PopperTeleportWrapper from './PopperTeleportWrapper.vue'
 
   /* Delay execution for a set amount of milliseconds */
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -56,6 +61,9 @@
     emits: ["open:popper", "close:popper"],
     directives: {
       clickAway,
+    },
+    components: {
+      PopperTeleportWrapper,
     },
     props: {
       /**
@@ -174,6 +182,31 @@
       content: {
         type: String,
         default: null,
+      },
+      /**
+       * Teleport popper element to selector
+       */
+      teleport: {
+        type: String,
+        default: null,
+      },
+    },
+    data() {
+      return {
+        isHovered: false,
+      }
+    },
+    methods: {
+      mouseEnter() {
+        this.isHovered = true;
+        this.openPopper();
+      },
+      async mouseLeave() {
+        this.isHovered = false;
+        await delay(50);
+        if(!this.isHovered) {
+          this.closePopper();
+        }
       },
     },
     setup(props, { slots, emit }) {
