@@ -6,19 +6,17 @@ Like the name suggests, `vue3-popper` is written for Vue 3. There are no plans t
 
 You can install `Vue 3 Popper` by opening your terminal in your project and running the following command:
 
-<CodeGroup>
-<CodeBlock title="YARN" active>
-```bash
-yarn add vue3-popper
-```
-</CodeBlock>
+With yarn:
 
-<CodeBlock title="NPM">
 ```bash
-npm i vue3-popper
+$ yarn add vue3-popper
 ```
-</CodeBlock>
-</CodeGroup>
+
+With NPM:
+
+```bash
+$ npm i vue3-popper
+```
 
 ### Global
 
