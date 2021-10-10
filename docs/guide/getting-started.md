@@ -257,10 +257,9 @@ Notice that in this example, `hover`, `openDelay` and `closeDelay` are all hardc
 ```vue
 <template>
   <!-- Hardcoded "hover", "openDelay" and "closeDelay" -->
-  <Popper v-bind="$attrs" openDelay="200" closeDelay="100">
-    <slot />
-    <template #content="props">
-      <slot name="content" v-bind="props" />
+  <Popper v-bind="$attrs" hover openDelay="200" closeDelay="100">
+    <template v-for="(_, slot) of $slots" v-slot:[slot]="scope">
+      <slot :name="slot" v-bind="scope" />
     </template>
   </Popper>
 </template>
