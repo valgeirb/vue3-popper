@@ -22,6 +22,14 @@ export default function usePopper({
     popperInstance: null,
   });
 
+  // Enable or disable event listeners to optimize performance.
+  const setPopperEventListeners = enabled => {
+    state.popperInstance?.setOptions(options => ({
+      ...options,
+      modifiers: [...options.modifiers, { name: "eventListeners", enabled }],
+    }));
+  };
+
   const close = () => {
     if (!state.isOpen) {
       return;
@@ -41,9 +49,12 @@ export default function usePopper({
   };
 
   // Initialize Popper when isOpen, placement change
-  watch([() => state.isOpen, placement], ([isOpen]) => {
+  watch([() => state.isOpen, placement], async ([isOpen]) => {
     if (isOpen) {
-      initializePopper();
+      await initializePopper();
+      setPopperEventListeners(true);
+    } else {
+      setPopperEventListeners(false);
     }
   });
 
@@ -75,6 +86,7 @@ export default function usePopper({
       ],
     });
 
+    // Update its position
     state.popperInstance.update();
   };
 
