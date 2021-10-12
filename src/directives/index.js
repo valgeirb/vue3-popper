@@ -1,1 +1,1 @@
-export { default } from "./click-away.js";
+export { vClickAway } from "./click-away.js";

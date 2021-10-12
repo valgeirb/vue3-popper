@@ -1,4 +1,4 @@
-export default {
+export const vClickAway = {
   beforeMount: (el, binding) => {
     el.clickAwayEvent = event => {
       // Clicked outside of the element and its children
