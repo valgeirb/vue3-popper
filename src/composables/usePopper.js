@@ -30,6 +30,9 @@ export default function usePopper({
     }));
   };
 
+  const enablePopperEventListeners = () => setPopperEventListeners(true);
+  const disablePopperEventListeners = () => setPopperEventListeners(false);
+
   const close = () => {
     if (!state.isOpen) {
       return;
@@ -48,13 +51,13 @@ export default function usePopper({
     emit("open:popper");
   };
 
-  // Initialize Popper when isOpen, placement change
+  // When isOpen or placement change
   watch([() => state.isOpen, placement], async ([isOpen]) => {
     if (isOpen) {
       await initializePopper();
-      setPopperEventListeners(true);
+      enablePopperEventListeners();
     } else {
-      setPopperEventListeners(false);
+      disablePopperEventListeners();
     }
   });
 

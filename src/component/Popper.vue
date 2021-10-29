@@ -3,7 +3,7 @@
     class="inline-block"
     :style="interactiveStyle"
     @mouseleave="hover && closePopper()"
-    v-click-away="{ handler: closePopper, enabled: enableClickAway }"
+    ref="popperContainerNode"
   >
     <div
       ref="triggerNode"
@@ -43,9 +43,8 @@
     watchEffect,
     onMounted,
   } from "vue";
-  import { usePopper, useContent } from "@/composables";
+  import { usePopper, useContent, useClickAway } from "@/composables";
   import Arrow from "./Arrow.vue";
-  import { vClickAway } from "@/directives";
 
   /* Delay execution for a set amount of milliseconds */
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -179,6 +178,7 @@
     },
   });
 
+  const popperContainerNode = ref(null);
   const popperNode = ref(null);
   const triggerNode = ref(null);
   const modifiedIsOpen = ref(false);
@@ -282,13 +282,22 @@
   });
 
   /**
-   * Watch for manual mode
+   * Watch for manual mode.
    */
   watchEffect(() => {
     if (manualMode.value) {
       show.value
         ? delay(openDelay.value).then(open)
         : delay(closeDelay.value).then(close);
+    }
+  });
+
+  /**
+   * Use click away if it should be enabled.
+   */
+  watchEffect(() => {
+    if (enableClickAway.value) {
+      useClickAway(popperContainerNode, closePopper);
     }
   });
 </script>
