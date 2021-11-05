@@ -1,6 +1,6 @@
 <template>
   <div
-    class="inline-block"
+    :class="{'inline-block': !block}"
     :style="interactiveStyle"
     @mouseleave="hover && closePopper()"
     ref="popperContainerNode"
@@ -176,6 +176,13 @@
       type: String,
       default: null,
     },
+    /**
+     * Toggle the wrapper block or inline-block display type
+     */
+    block: {
+      type: Boolean,
+      default: false
+    }
   });
 
   const popperContainerNode = ref(null);
