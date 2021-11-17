@@ -107,6 +107,7 @@ If your content is more complex, you can use the `#content` slot:
 | `--popper-theme-border-radius`          | 6px                                 |
 | `--popper-theme-padding`                | 16px                                |
 | `--popper-theme-box-shadow`             | 0 6px 30px -6px rgba(0, 0, 0, 0.25) |
+| `--popper-theme-interactive-size`       | -12px                               |
 
 You can overwrite them any way you like, for example in a Vue component:
 
@@ -173,6 +174,7 @@ Using the CSS variables you could even add multiple themes to your popover.
   --popper-theme-border-radius: 6px;
   --popper-theme-padding: 32px;
   --popper-theme-box-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
+  --popper-theme-interactive-size: -12px;
 }
 
 .light {
@@ -185,6 +187,7 @@ Using the CSS variables you could even add multiple themes to your popover.
   --popper-theme-border-radius: 6px;
   --popper-theme-padding: 32px;
   --popper-theme-box-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
+  --popper-theme-interactive-size: -12px;
 }
 ```
 
