@@ -46,9 +46,6 @@
   import { usePopper, useContent, useClickAway } from "@/composables";
   import Arrow from "./Arrow.vue";
 
-  /* Delay execution for a set amount of milliseconds */
-  const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-
   const emit = defineEmits(["open:popper", "close:popper"]);
   const slots = useSlots();
   const props = defineProps({
@@ -234,13 +231,16 @@
       : null,
   );
 
+  const openPopperDebounce = debounce(open, openDelay.value);
+  const closePopperDebounce = debounce(close, closeDelay.value);
+
   const openPopper = async () => {
     if (invalid.value || manualMode.value) {
       return;
     }
 
-    await delay(openDelay.value);
-    open();
+    closePopperDebounce.clear();
+    openPopperDebounce();
   };
 
   const closePopper = async () => {
@@ -248,8 +248,8 @@
       return;
     }
 
-    await delay(closeDelay.value);
-    close();
+    openPopperDebounce.clear();
+    closePopperDebounce();
   };
 
   const togglePopper = () => {
@@ -286,9 +286,7 @@
    */
   watchEffect(() => {
     if (manualMode.value) {
-      show.value
-        ? delay(openDelay.value).then(open)
-        : delay(closeDelay.value).then(close);
+      show.value ? openPopperDebounce() : closePopperDebounce();
     }
   });
 
