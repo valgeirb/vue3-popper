@@ -4,7 +4,7 @@ import useEventListener from "./useEventListener";
 export default function useClickAway(target, handler) {
   const event = "pointerdown";
 
-  if (!window) {
+  if (typeof window === 'undefined' || !window) {
     return;
   }
 
