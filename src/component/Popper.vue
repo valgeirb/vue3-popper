@@ -1,11 +1,13 @@
 <template>
   <div
-    class="inline-block"
-    :style="interactiveStyle"
     @mouseleave="hover && closePopper()"
     ref="popperContainerNode"
   >
     <div
+      class="popper-reference"
+      :class="{
+        'popper-reference--interactive': interactive,
+      }"
       ref="triggerNode"
       @mouseover="hover && openPopper()"
       @click="togglePopper"
@@ -224,12 +226,6 @@
   const enableClickAway = computed(
     () => !disableClickAway.value && !manualMode.value,
   );
-  // Add an invisible border to keep the Popper open when hovering from the trigger into it
-  const interactiveStyle = computed(() =>
-    interactive.value
-      ? `border: ${offsetDistance.value}px solid transparent; margin: -${offsetDistance.value}px;`
-      : null,
-  );
 
   const openPopperDebounce = debounce(open, openDelay.value);
   const closePopperDebounce = debounce(close, closeDelay.value);
@@ -301,9 +297,20 @@
 </script>
 
 <style scoped>
-  .inline-block {
-    display: inline-block;
+  .popper-reference--interactive {
+    position: relative;
   }
+
+  .popper-reference--interactive::before {
+    content: '';
+    position: absolute;
+    top: var(--popper-theme-interactive-size);
+    right: var(--popper-theme-interactive-size);
+    left: var(--popper-theme-interactive-size);
+    bottom: var(--popper-theme-interactive-size);
+    display: block;
+  }
+
   .popper {
     transition: background 250ms ease-in-out;
     background: var(--popper-theme-background-color);
@@ -320,10 +327,6 @@
   .popper:hover,
   .popper:hover > #arrow::before {
     background: var(--popper-theme-background-color-hover);
-  }
-
-  .inline-block {
-    display: inline-block;
   }
 
   .fade-enter-active,
