@@ -30,7 +30,11 @@
     </Transition>
   </div>
 </template>
-
+<script>
+export default {
+  name: "Popper",
+}
+</script>
 <script setup>
   import { debounce } from "debounce";
   import {
