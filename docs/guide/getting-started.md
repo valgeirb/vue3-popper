@@ -107,6 +107,7 @@ If your content is more complex, you can use the `#content` slot:
 | `--popper-theme-border-radius`          | 6px                                 |
 | `--popper-theme-padding`                | 16px                                |
 | `--popper-theme-box-shadow`             | 0 6px 30px -6px rgba(0, 0, 0, 0.25) |
+| `--popper-theme-cursor-hover`           | pointer                              |
 
 You can overwrite them any way you like, for example in a Vue component:
 
@@ -127,6 +128,7 @@ You can overwrite them any way you like, for example in a Vue component:
     --popper-theme-border-radius: 6px;
     --popper-theme-padding: 32px;
     --popper-theme-box-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
+    --popper-theme-cursor-hover: pointer;
   }
 </style>
 ```
@@ -143,6 +145,7 @@ You could also create a `theme.css` file:
   --popper-theme-border-radius: 6px;
   --popper-theme-padding: 32px;
   --popper-theme-box-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
+  --popper-theme-cursor-hover: pointer;
 }
 ```
 

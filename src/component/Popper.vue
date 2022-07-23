@@ -320,6 +320,7 @@
   .popper:hover,
   .popper:hover > #arrow::before {
     background: var(--popper-theme-background-color-hover);
+    cursor: var(--popper-theme-cursor-hover);
   }
 
   .inline-block {
