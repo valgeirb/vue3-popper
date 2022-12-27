@@ -16,6 +16,7 @@ export default function usePopper({
   placement,
   popperNode,
   triggerNode,
+  strategy,
 }) {
   const state = reactive({
     isOpen: false,
@@ -51,8 +52,8 @@ export default function usePopper({
     emit("open:popper");
   };
 
-  // When isOpen or placement change
-  watch([() => state.isOpen, placement], async ([isOpen]) => {
+  // When isOpen, placement or strategy change
+  watch([() => state.isOpen, placement, strategy], async ([isOpen]) => {
     if (isOpen) {
       await initializePopper();
       enablePopperEventListeners();
@@ -87,6 +88,7 @@ export default function usePopper({
           },
         },
       ],
+      strategy: strategy.value,
     });
 
     // Update its position
