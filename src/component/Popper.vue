@@ -173,6 +173,17 @@
       type: String,
       default: null,
     },
+    /**
+     * Positioning strategy, defaults to absolute
+     * @see https://popper.js.org/docs/v2/constructors/#strategy
+     */
+    strategy: {
+      type: String,
+      default: "absolute",
+      validator: function(value) {
+        return ["absolute", "fixed"].includes(value);
+      },
+    }
   });
 
   const popperContainerNode = ref(null);
@@ -203,6 +214,7 @@
     openDelay,
     placement,
     show,
+    strategy,
   } = toRefs(props);
 
   const { isOpen, open, close } = usePopper({
@@ -214,6 +226,7 @@
     placement,
     popperNode,
     triggerNode,
+    strategy,
   });
 
   const { hasContent } = useContent(slots, popperNode, content);
