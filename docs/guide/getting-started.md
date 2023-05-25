@@ -224,12 +224,12 @@ That's fine, you can always just apply your own styles, just make sure it's `sco
     text-transform: uppercase;
   }
 
-  :deep(.popper #arrow::before) {
+  :deep(.popper .arrow::before) {
     background: #e92791;
   }
 
   :deep(.popper:hover),
-  :deep(.popper:hover > #arrow::before) {
+  :deep(.popper:hover > .arrow::before) {
     background: #e92791;
   }
 </style>
