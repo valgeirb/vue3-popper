@@ -1,10 +1,10 @@
 <template>
-  <div id="arrow" data-popper-arrow></div>
+  <div class="arrow" data-popper-arrow></div>
 </template>
 
 <style scoped>
-  #arrow,
-  #arrow::before {
+  .arrow,
+  .arrow::before {
     transition: background 250ms ease-in-out;
     position: absolute;
     width: calc(10px - var(--popper-theme-border-width, 0px));
@@ -13,22 +13,22 @@
     background: var(--popper-theme-background-color);
   }
 
-  #arrow {
+  .arrow {
     visibility: hidden;
   }
 
-  #arrow::before {
+  .arrow::before {
     visibility: visible;
     content: "";
     transform: rotate(45deg);
   }
 
   /* Top arrow */
-  .popper[data-popper-placement^="top"] > #arrow {
+  .popper[data-popper-placement^="top"] > .arrow {
     bottom: -5px;
   }
 
-  .popper[data-popper-placement^="top"] > #arrow::before {
+  .popper[data-popper-placement^="top"] > .arrow::before {
     border-right: var(--popper-theme-border-width)
       var(--popper-theme-border-style) var(--popper-theme-border-color);
     border-bottom: var(--popper-theme-border-width)
@@ -36,11 +36,11 @@
   }
 
   /* Bottom arrow */
-  .popper[data-popper-placement^="bottom"] > #arrow {
+  .popper[data-popper-placement^="bottom"] > .arrow {
     top: -5px;
   }
 
-  .popper[data-popper-placement^="bottom"] > #arrow::before {
+  .popper[data-popper-placement^="bottom"] > .arrow::before {
     border-left: var(--popper-theme-border-width)
       var(--popper-theme-border-style) var(--popper-theme-border-color);
     border-top: var(--popper-theme-border-width)
@@ -48,11 +48,11 @@
   }
 
   /* Left arrow */
-  .popper[data-popper-placement^="left"] > #arrow {
+  .popper[data-popper-placement^="left"] > .arrow {
     right: -5px;
   }
 
-  .popper[data-popper-placement^="left"] > #arrow::before {
+  .popper[data-popper-placement^="left"] > .arrow::before {
     border-right: var(--popper-theme-border-width)
       var(--popper-theme-border-style) var(--popper-theme-border-color);
     border-top: var(--popper-theme-border-width)
@@ -60,7 +60,7 @@
   }
 
   /* Right arrow */
-  .popper[data-popper-placement^="right"] > #arrow {
+  .popper[data-popper-placement^="right"] > .arrow {
     left: -5px;
   }
 </style>
