@@ -36,12 +36,12 @@
     text-transform: uppercase;
   }
 
-  :deep(.popper #arrow::before) {
+  :deep(.popper .arrow::before) {
     background: #e92791;
   }
 
   .popper-container :deep(.popper:hover),
-  .popper-container :deep(.popper:hover > #arrow::before) {
+  .popper-container :deep(.popper:hover > .arrow::before) {
     background: #e92791;
   }
 </style>
