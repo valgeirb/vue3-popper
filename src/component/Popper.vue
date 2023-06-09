@@ -42,6 +42,7 @@
     watch,
     watchEffect,
     onMounted,
+    defineExpose
   } from "vue";
   import { usePopper, useContent, useClickAway } from "@/composables";
   import Arrow from "./Arrow.vue";
@@ -205,7 +206,7 @@
     show,
   } = toRefs(props);
 
-  const { isOpen, open, close } = usePopper({
+  const { isOpen, popperInstance, open, close } = usePopper({
     arrowPadding,
     emit,
     locked,
@@ -215,6 +216,10 @@
     popperNode,
     triggerNode,
   });
+
+  defineExpose({
+    update: popperInstance.value.update
+  })
 
   const { hasContent } = useContent(slots, popperNode, content);
 
