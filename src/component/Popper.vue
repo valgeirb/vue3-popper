@@ -256,6 +256,10 @@
     isOpen.value ? closePopper() : openPopper();
   };
 
+  const debouncedIsOpenClear = debounce(() => {
+    modifiedIsOpen.value = false;
+  }, 200);
+
   /**
    * If Popper is open, we automatically close it if it becomes
    * disabled or without content.
@@ -275,9 +279,7 @@
     if (isOpen) {
       modifiedIsOpen.value = true;
     } else {
-      debounce(() => {
-        modifiedIsOpen.value = false;
-      }, 200);
+      debouncedIsOpenClear();
     }
   });
 
