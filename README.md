@@ -67,8 +67,8 @@ yarn add vue3-popper
 | ------------------ | -------- | ----------------------------------------------------------------------------------------------------------- |
 | `placement`        | `bottom` | Preferred placement of the Popper                                                                           |
 | `disableClickAway` | `false`  | Disables automatically closing the Popper when the user clicks away from it                                 |
-| `offsetSkid`       | `0`      | Offset in pixels along the trigger element                                                                  |
-| `offsetDistance`   | `12`     | Offset in pixels away from the trigger element                                                              |
+| `offsetSkid`       | `0`      | Offset in pixels along the trigger element (Accepts string using % based on wrapper element, e.g. "40%")    |
+| `offsetDistance`   | `12`     | Offset in pixels away from the trigger element (Accepts string using % based on wrapper element, e.g. "40%")|
 | `hover`            | `false`  | Trigger the Popper on hover                                                                                 |
 | `arrow`            | `false`  | Display an arrow on the Popper                                                                              |
 | `arrowPadding`     | `0`      | Stop arrow from reaching the edge of the Popper (in pixels)                                                 |
