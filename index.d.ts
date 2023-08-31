@@ -1,7 +1,7 @@
 declare module "vue3-popper" {
   import { DefineComponent } from "vue";
 
-  interface Props {
+  export interface Props {
     placement?:
       | "auto"
       | "auto-start"
