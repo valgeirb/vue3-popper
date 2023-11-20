@@ -1,7 +1,5 @@
-declare module "vue3-popper" {
-  import { DefineComponent } from "vue";
-
-  interface Props {
+declare module "vue-3-popper-ts" {
+  export default interface Props {
     placement?:
       | "auto"
       | "auto-start"
@@ -34,9 +32,15 @@ declare module "vue3-popper" {
     content?: string;
     "onOpen:popper"?: () => void;
     "onClose:popper"?: () => void;
-  }
+   }
+}
+
+declare module "vue3-popper" {
+  import Props  from 'vue-3-popper-ts'
+  import { DefineComponent } from "vue";
 
   const Popper: DefineComponent<Props>;
 
   export default Popper;
 }
+
