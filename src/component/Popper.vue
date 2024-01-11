@@ -42,7 +42,6 @@
     watch,
     watchEffect,
     onMounted,
-    expose,
   } from "vue";
   import { usePopper, useContent, useClickAway } from "@/composables";
   import Arrow from "./Arrow.vue";
@@ -282,7 +281,7 @@
     }
   });
 
-  expose({
+  defineExpose({
     open:openPopperDebounce,
     close:closePopperDebounce
   })
