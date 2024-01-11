@@ -281,6 +281,10 @@
     }
   });
 
+  defineExpose({
+    open:openPopperDebounce,
+    close:closePopperDebounce
+  })
   /**
    * Watch for manual mode.
    */
