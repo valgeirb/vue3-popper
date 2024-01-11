@@ -1,22 +1,45 @@
 <template>
   <div id="app">
-    <Popper arrow>
+    <Popper arrow ref="popper">
       <button>Click this</button>
       <template #content>
         <div>This is the content</div>
       </template>
     </Popper>
+
+    <div>
+      <button @click="()=>open()">
+        <span>open</span>
+      </button>
+      <button @click="()=>close()">
+        <span>close</span>
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
-  import { defineComponent } from "vue";
+  import { defineComponent, ref } from "vue";
   import Popper from "@/component/Popper.vue";
 
   export default defineComponent({
     name: "ServeDev",
     components: {
       Popper,
+    },
+    setup() {
+      const popper = ref('popper')
+      const open = () => {
+        popper.value.open()
+      }
+      const close = () => {
+        popper.value.close()
+      }
+      return {
+        popper,
+        open,
+        close
+      };
     },
   });
 </script>
